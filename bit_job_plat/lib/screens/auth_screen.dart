@@ -1,3 +1,5 @@
+import 'package:bit_job_plat/screens/home_screen.dart';
+import 'package:bit_job_plat/screens/test.dart';
 import 'package:bit_job_plat/values/colors.dart';
 import 'package:bit_job_plat/values/strings.dart';
 import 'package:bit_job_plat/values/style.dart';
@@ -8,6 +10,7 @@ import 'package:get/get.dart';
 
 import '../values/colors.dart';
 import '../values/dimens.dart';
+import 'navbar.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -48,7 +51,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   @override
   void dispose() {
     _tabController!.dispose();
-     _focusNode.removeListener(_onFocusChange);
+    _focusNode.removeListener(_onFocusChange);
     _focusNode.dispose();
     super.dispose();
   }
@@ -62,15 +65,14 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
     )
   ]*/
 
-
   void _onFocusChange() {
     setState(() {
       _isFocused = _focusNode.hasFocus;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    
     bool isFocused = _focusNode.hasFocus;
     Color prefixIconColor = isFocused ? Colors.red : Colors.blue;
     final signInEmailField = Padding(
@@ -90,7 +92,6 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
         ),
         child: TextFormField(
             focusNode: _focusNode,
-
             autofocus: false,
             controller: signInEmailController,
             keyboardType: TextInputType.emailAddress,
@@ -110,7 +111,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
             },
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.mail, color: prefixIconColor),
+                prefixIcon: const Icon(Icons.mail),
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
                 hintText: "Email",
@@ -150,7 +151,6 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
             },
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-//hoverColor: secondaryColor,
                 focusColor: secondaryColor,
                 suffixIcon: Icon(
                   Icons.visibility,
@@ -540,7 +540,6 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       ),
     );
     return SafeArea(
-     
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Column(
@@ -631,18 +630,23 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: Container(
-                          width: Get.width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: secondaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Sign In',
-                              style: boldLargeTextStyle.copyWith(
-                                  color: Colors.white),
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(FancyBottomBarPage());
+                          },
+                          child: Container(
+                            width: Get.width,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: secondaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Sign In',
+                                style: boldLargeTextStyle.copyWith(
+                                    color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

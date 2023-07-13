@@ -38,6 +38,7 @@ final smallNormalTextStyle = GoogleFonts.quicksand(
     fontSize: textSizeSMedium,
     fontWeight: FontWeight.w400,
     letterSpacing: 0.3);
+    
 final smallMediumTextStyle = GoogleFonts.quicksand(
     color: primaryTextColor,
     fontSize: textSizeSMedium,
