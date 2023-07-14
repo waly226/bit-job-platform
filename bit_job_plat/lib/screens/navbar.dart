@@ -1,218 +1,357 @@
 import 'package:bit_job_plat/screens/home_screen.dart';
-import 'package:bit_job_plat/values/colors.dart';
-import 'package:bit_job_plat/values/style.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:flutter/services.dart';
 
-class FancyBottomBarPage extends StatefulWidget {
-  static const String path = "lib/src/pages/misc/navybar.dart";
+import '../values/colors.dart';
 
-  const FancyBottomBarPage({super.key});
+
+
+import 'package:flutter/material.dart';
+
+class AnimatedBottomBar extends StatefulWidget {
+  static const String path = "lib/src/pages/animations/anim4.dart";
+
+  const AnimatedBottomBar({super.key});
   @override
-  _FancyBottomBarPageState createState() => _FancyBottomBarPageState();
+  _AnimatedBottomBarState createState() => _AnimatedBottomBarState();
 }
 
-class _FancyBottomBarPageState extends State<FancyBottomBarPage> {
+class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
+  int? _currentPage;
+  bool isBottomSheetVisible = false;
+  
   @override
-  void dispose() {
-    indexcontroller.close();
-    super.dispose();
+  void initState() {
+    _currentPage = 0;
+    super.initState();
   }
 
-  PageController pageController = PageController(initialPage: 0);
-  StreamController<int> indexcontroller = StreamController<int>.broadcast();
-  int index = 0;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        
-        body: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          onPageChanged: (index) {
-            indexcontroller.add(index);
-          },
-          controller: pageController,
-          children: const <Widget>[
-            HomePage(),
-            Center(
-              child: Text('Offers page'),
+    return Scaffold(
+      
+      backgroundColor: Colors.grey.shade300,
+      body: getPage(_currentPage),
+      bottomNavigationBar: AnimatedBottomNav(
+          currentIndex: _currentPage,
+          onChange: (index) {
+            
+            setState(() {
+              _currentPage = index;
+            });
+          }),
+    );
+  }
+
+  getPage(int? page) {
+    switch (page) {
+      case 0:
+        return const HomePage();
+      case 1:
+        return const Center(
+            child: Text("Profile Page"));
+      case 2:
+        return const Center(
+            child: Text("Menu Page"));
+      case 3:
+        return const Center(
+            child: Text("Menu Page"));
+    }
+  }
+}
+
+class AnimatedBottomNav extends StatelessWidget {
+  final int? currentIndex;
+  final Function(int)? onChange;
+  const AnimatedBottomNav({Key? key, this.currentIndex, this.onChange})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+        double displayWidth = MediaQuery.of(context).size.width;
+
+    return Padding(
+      
+      padding: const EdgeInsets.only(bottom: 15),
+      child: Container(
+         margin: EdgeInsets.all(displayWidth * .03),
+        height: displayWidth * .155,
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50), boxShadow: [
+            BoxShadow(
+              color: primaryColor,
+              blurRadius: 10,
+              offset: Offset(0, 5),
             ),
-            Center(
-              child: Text('Messages page'),
+          ],),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: InkWell(
+                onTap: () => onChange!(0),
+                child: BottomNavItem(
+                  icon: Icons.home,
+                  activeColor: secondaryColor,
+                  title: "Home",
+                  isActive: currentIndex == 0,
+                ),
+              ),
             ),
-            Center(
-              child: Text('Profile page'),
+            Expanded(
+              child: InkWell(
+                onTap: () => onChange!(1),
+                child: BottomNavItem(
+                  activeColor: secondaryColor,
+                  icon: Icons.home_repair_service,
+                  title: "Offers",
+                  isActive: currentIndex == 1,
+                ),
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                onTap: () => onChange!(2),
+                child: BottomNavItem(
+                  activeColor: secondaryColor,
+                  icon: Icons.message_rounded,
+                  title: "Messages",
+                  isActive: currentIndex == 2,
+                ),
+              ),
+            ),
+              Expanded(
+              child: InkWell(
+                onTap: () => onChange!(3),
+                child: BottomNavItem(
+                  activeColor: secondaryColor,
+                  icon: Icons.person,
+                  title: "Profile",
+                  isActive: currentIndex == 3,
+                ),
+              ),
             ),
           ],
         ),
-        bottomNavigationBar: StreamBuilder<Object>(
-            initialData: 0,
-            stream: indexcontroller.stream,
-            builder: (context, snapshot) {
-              int? cIndex = snapshot.data as int?;
-              return FancyBottomNavigation(
-                currentIndex: cIndex,
-                items: <FancyBottomNavigationItem>[
-                  FancyBottomNavigationItem(
-                      icon: const Icon(Icons.home), title:  Text('Home', style: boldTextStyle.copyWith(color: Colors.white),)),
-                  FancyBottomNavigationItem(
-                      icon: const Icon(Icons.home_repair_service), title:  Text('Offers', style: boldTextStyle.copyWith(color: Colors.white),)),
-                  FancyBottomNavigationItem(
-                      icon: const Icon(Icons.message), title:  Text('Messages', style: boldTextStyle.copyWith(color: Colors.white),)),
-                  FancyBottomNavigationItem(
-                      icon: const Icon(Icons.person), title:  Text('Profile', style: boldTextStyle.copyWith(color: Colors.white),)),
-                ],
-                onItemSelected: (int value) {
-                  indexcontroller.add(value);
-                  pageController.jumpToPage(value);
-                },
-              );
-            }),
       ),
     );
   }
 }
 
-class FancyBottomNavigation extends StatefulWidget {
-  final int? currentIndex;
-  final double iconSize;
+class BottomNavItem extends StatelessWidget {
+  final bool isActive;
+  final IconData? icon;
   final Color? activeColor;
   final Color? inactiveColor;
-  final Color? backgroundColor;
-  final List<FancyBottomNavigationItem> items;
-  final ValueChanged<int> onItemSelected;
-
-  const FancyBottomNavigation(
-      {super.key, 
-      this.currentIndex = 0,
-      this.iconSize = 30,
-      this.activeColor = secondaryColor,
+  final String? title;
+  const BottomNavItem(
+      {Key? key,
+      this.isActive = false,
+      this.icon,
+      this.activeColor,
       this.inactiveColor,
-      this.backgroundColor = Colors.white,
-      required this.items,
-      required this.onItemSelected});
-
+      this.title})
+      : super(key: key);
   @override
-  _FancyBottomNavigationState createState() {
-    return _FancyBottomNavigationState(
-        items: items,
-        backgroundColor: backgroundColor,
-        currentIndex: currentIndex,
-        iconSize: iconSize,
-        activeColor: activeColor,
-        inactiveColor: inactiveColor,
-        onItemSelected: onItemSelected);
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      transitionBuilder: (child, animation) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0.0, 1.0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        );
+      },
+      duration: const Duration(milliseconds: 500),
+      reverseDuration: const Duration(milliseconds: 200),
+      child: isActive
+          ? Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+            ),
+            
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    title!,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: activeColor ?? Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  const SizedBox(height: 5.0),
+                  Container(
+                    width: 5.0,
+                    height: 5.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: activeColor ?? Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : Icon(
+              icon,
+              color: inactiveColor ?? primaryColor,
+            ),
+    );
   }
 }
+/*
+class BottomNavigationPage extends StatefulWidget {
+  @override
+  BottomNavigationPageState createState() => BottomNavigationPageState();
+}
 
-class _FancyBottomNavigationState extends State<FancyBottomNavigation> {
-  final int? currentIndex;
-  final double? iconSize;
-  Color? activeColor;
-  Color? inactiveColor;
-  Color? backgroundColor;
-  List<FancyBottomNavigationItem> items;
-  int? _selectedIndex;
-  ValueChanged<int> onItemSelected;
-
-  _FancyBottomNavigationState(
-      {required this.items,
-      this.currentIndex,
-      this.activeColor = secondaryColor,
-      this.inactiveColor = Colors.black,
-      this.backgroundColor,
-      this.iconSize,
-      required this.onItemSelected}) {
-    _selectedIndex = currentIndex;
-  }
-
-  Widget _buildItem(FancyBottomNavigationItem item, bool isSelected) {
-    return AnimatedContainer(
-      width: isSelected ? 124 : 50,
-      height: double.maxFinite,
-      duration: const Duration(milliseconds: 200),
-      padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-      decoration: !isSelected
-          ? null
-          : BoxDecoration(
-              color: activeColor,
-              borderRadius: const BorderRadius.all(Radius.circular(50)),
-            ),
-      child: ListView(
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(0),
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: IconTheme(
-                  data: IconThemeData(
-                      size: iconSize,
-                      color: isSelected ? backgroundColor : inactiveColor),
-                  child: item.icon,
-                ),
-              ),
-              isSelected
-                  ? DefaultTextStyle.merge(
-                      style: TextStyle(color: backgroundColor),
-                      child: item.title,
-                    )
-                  : const SizedBox.shrink()
-            ],
-          )
-        ],
-      ),
-    );
+class BottomNavigationPageState extends State<BottomNavigationPage> {
+  var currentIndex = 0;
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    activeColor =
-        (activeColor == null) ? Theme.of(context).colorScheme.secondary : activeColor;
+    double displayWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: IndexedStack(
+        index: currentIndex,
+        children: [
+          HomePage(),
+          Text('Offers'),
+          Text('Messages'),
+          Text('Profile'),
+        ],
+      ),
+      bottomNavigationBar: AnimatedBottNav(
 
-    backgroundColor = (backgroundColor == null)
-        ? Theme.of(context).bottomAppBarTheme.color
-        : backgroundColor;
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 56,
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
-      decoration: BoxDecoration(
-          color: backgroundColor,
-          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 2)]),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: items.map((item) {
-          var index = items.indexOf(item);
-          return GestureDetector(
+      )
+      
+      Container(
+        margin: EdgeInsets.all(displayWidth * .05),
+        height: displayWidth * .155,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: primaryColor,
+              blurRadius: 30,
+              offset: Offset(0, 10),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: ListView.builder(
+          itemCount: 4,
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: displayWidth * .02),
+          itemBuilder: (context, index) => InkWell(
             onTap: () {
-              onItemSelected(index);
-
               setState(() {
-                _selectedIndex = index;
+                currentIndex = index;
+                HapticFeedback.lightImpact();
               });
             },
-            child: _buildItem(item, _selectedIndex == index),
-          );
-        }).toList(),
+            splashColor: primaryColor,
+            highlightColor: primaryColor,
+            child: Stack(
+              children: [
+                AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  width: index == currentIndex
+                      ? displayWidth * .32
+                      : displayWidth * .18,
+                  alignment: Alignment.center,
+                  child: AnimatedContainer(
+                    duration: Duration(seconds: 1),
+                    curve: Curves.fastLinearToSlowEaseIn,
+                    height: index == currentIndex ? displayWidth * .12 : 0,
+                    width: index == currentIndex ? displayWidth * .32 : 0,
+                    decoration: BoxDecoration(
+                      color: index == currentIndex
+                          ? secondaryColor
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                ),
+                AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  width: index == currentIndex
+                      ? displayWidth * .31
+                      : displayWidth * .18,
+                  alignment: Alignment.center,
+                  child: Stack(
+                    children: [
+                      Row(
+                        children: [
+                          AnimatedContainer(
+                            duration: Duration(seconds: 1),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            width:
+                                index == currentIndex ? displayWidth * .13 : 0,
+                          ),
+                          AnimatedOpacity(
+                            opacity: index == currentIndex ? 1 : 0,
+                            duration: Duration(seconds: 1),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            child: Text(
+                              index == currentIndex
+                                  ? '${listOfStrings[index]}'
+                                  : '',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          AnimatedContainer(
+                            duration: Duration(seconds: 1),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            width:
+                                index == currentIndex ? displayWidth * .03 : 20,
+                          ),
+                          Icon(
+                            listOfIcons[index],
+                            size: displayWidth * .076,
+                            color: index == currentIndex
+                                ? Colors.white
+                                : primaryColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
-}
 
-class FancyBottomNavigationItem {
-  final Icon icon;
-  final Text title;
+  List<IconData> listOfIcons = [
+    Icons.home_rounded,
+    Icons.home_repair_service,
+    Icons.comment,
+    Icons.person_rounded,
+  ];
 
-  FancyBottomNavigationItem({
-    required this.icon,
-    required this.title,
-  });
+  List<String> listOfStrings = [
+    'Home',
+    'Offers',
+    'Messages',
+    'Profile',
+  ];
 }
+*/

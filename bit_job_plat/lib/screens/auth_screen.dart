@@ -632,7 +632,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                         padding: const EdgeInsets.only(left: 30, right: 30),
                         child: InkWell(
                           onTap: () {
-                            Get.to(FancyBottomBarPage());
+                            Get.to(AnimatedBottomBar());
                           },
                           child: Container(
                             width: Get.width,
