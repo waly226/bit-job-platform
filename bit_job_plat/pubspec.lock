@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  dots_indicator:
+    dependency: "direct main"
+    description:
+      name: dots_indicator
+      sha256: "58b6a365744aa62aa1b70c4ea29e5106fbe064f5edaf7e9652e9b856edbfd9bb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -73,14 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
-  file:
-    dependency: transitive
+  file_picker:
+    dependency: "direct main"
     description:
-      name: file
-      sha256: "1b92bec4fc2a72f59a8e15af5f52cd441e4a7860b49499d69dfa817af20e925d"
+      name: file_picker
+      sha256: "9d6e95ec73abbd31ec54d0e0df8a961017e165aba1395e462e5b31ea0c165daf"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.4"
+    version: "5.3.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -94,14 +102,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.5"
+  flutter_expandable:
+    dependency: "direct main"
+    description:
+      name: flutter_expandable
+      sha256: "142d5f0938f4c8e50d6535b4ea049db122f4e27180050ba9285eb4deac3afd77"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  flutter_expandable_text:
+    dependency: "direct main"
+    description:
+      name: flutter_expandable_text
+      sha256: "9c6496051fda42bb7d25bbf09453a587475bb3f6c2114f312cb5b2e87cff7e89"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: aeb0b80a8b3709709c9cc496cdc027c5b3216796bc0af0ce1007eaf24464fd4c
+      sha256: "2118df84ef0c3ca93f96123a616ae8540879991b8b57af2f81b76a7ada49b2a4"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: "950e77c2bbe1692bc0874fc7fb491b96a4dc340457f4ea1641443d0a6c1ea360"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.15"
   flutter_spinkit:
     dependency: transitive
     description:
@@ -236,10 +268,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_foundation
-      sha256: "1995d88ec2948dac43edf8fe58eb434d35d22a2940ecee1a9fefcd62beee6eb3"
+      sha256: "916731ccbdce44d545414dd9961f26ba5fbaa74bcbb55237d8e65a623a8c7297"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.3"
+    version: "2.2.4"
   path_provider_linux:
     dependency: transitive
     description:
@@ -280,14 +312,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  process:
-    dependency: transitive
-    description:
-      name: process
-      sha256: "53fd8db9cec1d37b0574e12f07520d582019cb6c44abf5479a01505099a34a09"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.4"
   simple_gesture_detector:
     dependency: "direct main"
     description:
@@ -369,10 +393,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: eed4e6a1164aa9794409325c3b707ff424d4d1c2a785e7db67f8bbda00e36e51
+      sha256: "15f5acbf0dce90146a0f5a2c4a002b1814a6303c4c5c075aa2623b2d16156f03"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.35"
+    version: "6.0.36"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -393,10 +417,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_macos
-      sha256: "91ee3e75ea9dadf38036200c5d3743518f4a5eb77a8d13fda1ee5764373f185e"
+      sha256: "1c4fdc0bfea61a70792ce97157e5cc17260f61abbe4f39354513f39ec6fd73b1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.5"
+    version: "3.0.6"
   url_launcher_platform_interface:
     dependency: transitive
     description:
@@ -409,18 +433,18 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_web
-      sha256: "6bb1e5d7fe53daf02a8fee85352432a40b1f868a81880e99ec7440113d5cfcab"
+      sha256: cc26720eefe98c1b71d85f9dc7ef0cada5132617046369d9dc296b3ecaa5cbb4
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.17"
+    version: "2.0.18"
   url_launcher_windows:
     dependency: transitive
     description:
       name: url_launcher_windows
-      sha256: "254708f17f7c20a9c8c471f67d86d76d4a3f9c1591aad1e15292008aceb82771"
+      sha256: "7967065dd2b5fccc18c653b97958fdf839c5478c28e767c61ee879f4e7882422"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.6"
+    version: "3.0.7"
   vector_math:
     dependency: transitive
     description:
@@ -441,10 +465,10 @@ packages:
     dependency: transitive
     description:
       name: xdg_directories
-      sha256: ee1505df1426458f7f60aac270645098d318a8b4766d85fde75f76f2e21807d1
+      sha256: e0b1147eec179d3911f1f19b59206448f78195ca1d20514134e10641b7d7fbff
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
 sdks:
   dart: ">=2.19.6 <3.0.0"
   flutter: ">=3.3.0"

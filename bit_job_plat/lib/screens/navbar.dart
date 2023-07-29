@@ -1,15 +1,12 @@
 import 'package:bit_job_plat/screens/home_screen.dart';
+import 'package:bit_job_plat/screens/offers_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../values/colors.dart';
-
-
-
 import 'package:flutter/material.dart';
 
 class AnimatedBottomBar extends StatefulWidget {
-  static const String path = "lib/src/pages/animations/anim4.dart";
+
 
   const AnimatedBottomBar({super.key});
   @override
@@ -19,7 +16,9 @@ class AnimatedBottomBar extends StatefulWidget {
 class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
   int? _currentPage;
   bool isBottomSheetVisible = false;
-  
+  //ValueNotifier<bool> isBottomSheetVisible = ValueNotifier<bool>(false);
+
+
   @override
   void initState() {
     _currentPage = 0;
@@ -32,7 +31,9 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
       
       backgroundColor: Colors.grey.shade300,
       body: getPage(_currentPage),
-      bottomNavigationBar: AnimatedBottomNav(
+      bottomNavigationBar: isBottomSheetVisible
+        ? SizedBox.shrink()
+        : AnimatedBottomNav(
           currentIndex: _currentPage,
           onChange: (index) {
             
@@ -48,8 +49,7 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
       case 0:
         return const HomePage();
       case 1:
-        return const Center(
-            child: Text("Profile Page"));
+        return  OffersScreen();
       case 2:
         return const Center(
             child: Text("Menu Page"));
@@ -58,6 +58,25 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
             child: Text("Menu Page"));
     }
   }
+
+  
+  /* void showBottomSheet() {
+    setState(() {
+      isBottomSheetVisible = true;
+    });*/
+
+   /* showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return HomePage(
+          onClose: () {
+            setState(() {
+              isBottomSheetVisible = false;
+            });
+          },
+        );
+      },
+    );*/
 }
 
 class AnimatedBottomNav extends StatelessWidget {

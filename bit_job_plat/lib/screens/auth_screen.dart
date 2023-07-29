@@ -617,7 +617,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                             ],
                           ),
                           SizedBox(
-                            width: 90,
+                            width: Get.width / 6,
                           ),
                           Text(
                             'Forgot Password',
