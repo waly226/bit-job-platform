@@ -1,13 +1,13 @@
 import 'package:bit_job_plat/screens/home_screen.dart';
 import 'package:bit_job_plat/screens/offers_screen.dart';
+import 'package:bit_job_plat/screens/profile_screen.dart';
+import 'package:bit_job_plat/screens/saved_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../values/colors.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedBottomBar extends StatefulWidget {
-
-
   const AnimatedBottomBar({super.key});
   @override
   _AnimatedBottomBarState createState() => _AnimatedBottomBarState();
@@ -18,7 +18,6 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
   bool isBottomSheetVisible = false;
   //ValueNotifier<bool> isBottomSheetVisible = ValueNotifier<bool>(false);
 
-
   @override
   void initState() {
     _currentPage = 0;
@@ -28,19 +27,17 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.grey.shade300,
       body: getPage(_currentPage),
       bottomNavigationBar: isBottomSheetVisible
-        ? SizedBox.shrink()
-        : AnimatedBottomNav(
-          currentIndex: _currentPage,
-          onChange: (index) {
-            
-            setState(() {
-              _currentPage = index;
-            });
-          }),
+          ? SizedBox.shrink()
+          : AnimatedBottomNav(
+              currentIndex: _currentPage,
+              onChange: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              }),
     );
   }
 
@@ -49,23 +46,22 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
       case 0:
         return const HomePage();
       case 1:
-        return  OffersScreen();
+        return OffersScreen();
       case 2:
-        return const Center(
-            child: Text("Menu Page"));
+        return const Center(child: Text("Menu Page"));
       case 3:
-        return const Center(
-            child: Text("Menu Page"));
+        return const SavedScreen();
+      case 4:
+        return const ProfileScreen();
     }
   }
 
-  
   /* void showBottomSheet() {
     setState(() {
       isBottomSheetVisible = true;
     });*/
 
-   /* showModalBottomSheet(
+  /* showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return HomePage(
@@ -86,21 +82,24 @@ class AnimatedBottomNav extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-        double displayWidth = MediaQuery.of(context).size.width;
+    double displayWidth = MediaQuery.of(context).size.width;
 
     return Padding(
-      
       padding: const EdgeInsets.only(bottom: 15),
       child: Container(
-         margin: EdgeInsets.all(displayWidth * .03),
+        margin: EdgeInsets.all(displayWidth * .03),
         height: displayWidth * .155,
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(50), boxShadow: [
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(50),
+          boxShadow: [
             BoxShadow(
               color: primaryColor,
               blurRadius: 10,
               offset: Offset(0, 5),
             ),
-          ],),
+          ],
+        ),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -130,20 +129,31 @@ class AnimatedBottomNav extends StatelessWidget {
                 onTap: () => onChange!(2),
                 child: BottomNavItem(
                   activeColor: secondaryColor,
-                  icon: Icons.message_rounded,
-                  title: "Messages",
+                  icon: Icons.forum,
+                  title: "Chat",
                   isActive: currentIndex == 2,
                 ),
               ),
             ),
-              Expanded(
+            Expanded(
               child: InkWell(
                 onTap: () => onChange!(3),
                 child: BottomNavItem(
                   activeColor: secondaryColor,
+                  icon: Icons.bookmark,
+                  title: "Saved",
+                  isActive: currentIndex == 3,
+                ),
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                onTap: () => onChange!(4),
+                child: BottomNavItem(
+                  activeColor: secondaryColor,
                   icon: Icons.person,
                   title: "Profile",
-                  isActive: currentIndex == 3,
+                  isActive: currentIndex == 4,
                 ),
               ),
             ),
@@ -184,11 +194,10 @@ class BottomNavItem extends StatelessWidget {
       reverseDuration: const Duration(milliseconds: 200),
       child: isActive
           ? Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
-            ),
-            
+              ),
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

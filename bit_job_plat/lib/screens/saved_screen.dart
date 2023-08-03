@@ -8,11 +8,16 @@ import '../values/colors.dart';
 import '../values/dimens.dart';
 import '../values/style.dart';
 
-class OffersScreen extends StatelessWidget {
-  const OffersScreen({super.key});
+class SavedScreen extends StatefulWidget {
+  const SavedScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<SavedScreen> createState() => _SavedScreenState();
+}
+
+class _SavedScreenState extends State<SavedScreen> {
+  @override
+ Widget build(BuildContext context) {
     var jobsList = CoreController.instance.jobsList;
     var companiesList = CoreController.instance.companiesList;
     var companiesLogos = CoreController.instance.companiesLogos;
@@ -22,9 +27,6 @@ class OffersScreen extends StatelessWidget {
       ),
       Tab(
         text: "Interships",
-      ),
-      Tab(
-        text: 'Announcements',
       )
     ];
     return DefaultTabController(
@@ -34,7 +36,7 @@ class OffersScreen extends StatelessWidget {
             preferredSize: Size(500, 100),
             child: AppBar(
               title: Text(
-                'My offers',
+                'Saved Offers',
                 softWrap: true,
                 maxLines: 2,
                 textAlign: TextAlign.start,
@@ -469,34 +471,8 @@ class OffersScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: 50,
-              height: 50,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10),
-                ),
-              ),
-            )
+           
           ]),
         ));
-  }
-}
-class RectangleTriangleClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.moveTo(0, size.height); // Déplacer au coin inférieur gauche
-    path.lineTo(size.width, size.height); // Dessiner le côté inférieur
-    path.lineTo(0, 0); // Dessiner le côté gauche
-    path.close(); // Fermer le chemin pour former un triangle rectangle
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
   }
 }

@@ -98,14 +98,14 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Hi Auguste',
+                              'Hi Waliooulahi',
                               style: normalLargeTextStyle.copyWith(
                                   color: Colors.white),
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Find your dream job',
+                            Text('Feel free to search an offer',
                                 style: normalLargeTextStyle.copyWith(
                                     color: Colors.white)),
                           ]),
@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Recommended for you',
+                                        'Job offers',
                                         style: boldLargeTextStyle.copyWith(
                                             color: Colors.white),
                                       ),
@@ -434,7 +434,7 @@ class _HomePageState extends State<HomePage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text('Top Companies',
+                                      Text('Announcements',
                                           style: boldLargeTextStyle.copyWith(
                                               color: Colors.white)),
                                       Text(
@@ -572,7 +572,7 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Recently Job List',
+                        Text('Interships Offers',
                             style: boldTextStyle.copyWith(color: Colors.black)),
                         Text(
                           'View all',
