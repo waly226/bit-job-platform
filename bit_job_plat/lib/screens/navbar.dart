@@ -1,9 +1,11 @@
+import 'package:bit_job_plat/screens/chat_screen.dart';
 import 'package:bit_job_plat/screens/home_screen.dart';
 import 'package:bit_job_plat/screens/offers_screen.dart';
 import 'package:bit_job_plat/screens/profile_screen.dart';
 import 'package:bit_job_plat/screens/saved_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import '../values/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -44,15 +46,15 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar> {
   getPage(int? page) {
     switch (page) {
       case 0:
-        return const HomePage();
+        return HomePage();
       case 1:
         return OffersScreen();
       case 2:
-        return const Center(child: Text("Menu Page"));
+        return ChatPage();
       case 3:
-        return const SavedScreen();
+        return SavedScreen();
       case 4:
-        return const ProfileScreen();
+        return ProfileScreen();
     }
   }
 

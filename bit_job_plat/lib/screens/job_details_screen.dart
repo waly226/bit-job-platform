@@ -15,7 +15,12 @@ import '../values/style.dart';
 class JobDetailsScreen extends StatefulWidget {
   final String company;
   final String job;
-  const JobDetailsScreen({Key? key, required this.company, required this.job});
+  final String image;
+  const JobDetailsScreen(
+      {Key? key,
+      required this.company,
+      required this.job,
+      required this.image});
 
   @override
   _JobDatailsScreenState createState() => _JobDatailsScreenState();
@@ -32,10 +37,12 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
   var companiesList = CoreController.instance.companiesList;
   final int rating = 4;
   final double size = 24.0;
-
+  final job = Get.arguments['job'] as String;
+  final company = Get.arguments['company'] as String;
+  final image = Get.arguments['image_path'] as String;
   List<String> imageList = [
-    'assets/images/ui.jpg',
-    'assets/images/ux.png',
+    'assets/images/full.jpg',
+    'assets/images/full.jpg',
     'assets/images/Visuel.png',
     'assets/images/u.jpg',
   ];
@@ -137,7 +144,7 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                       child: Stack(
                         children: [
                           PageView.builder(
-                            physics: AlwaysScrollableScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
                             controller: _pageController,
                             itemCount: imageList.length,
                             itemBuilder: (context, index) {
@@ -187,8 +194,7 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                   child: Image(
                                       height: 50,
                                       width: 50,
-                                      image:
-                                          AssetImage('assets/images/bit.png')),
+                                      image: AssetImage(image)),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -210,7 +216,7 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  '${widget.job}',
+                                                  '${company}',
                                                   //data.recommendedOffers.toString(),
                                                   maxLines: 2,
                                                   overflow:
@@ -228,14 +234,14 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     softWrap: true,
-                                                    '${widget.company}',
+                                                    '${job}',
                                                     style: hintTextStyle,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                             SizedBox(
-                                              width: 50,
+                                              width: 30,
                                             ),
                                             Column(
                                               crossAxisAlignment:
@@ -245,23 +251,28 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Icon(
-                                                      Icons.attach_money,
+                                                      Icons.info,
                                                       color: secondaryColor,
+                                                      size: 20,
                                                     ),
                                                     Text(
-                                                      '70K',
+                                                      'Job',
                                                       style: hintTextStyle,
                                                     ),
                                                   ],
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
                                                 ),
                                                 Row(
                                                   children: [
                                                     Icon(
                                                       Icons.location_on,
                                                       color: secondaryColor,
+                                                      size: 20,
                                                     ),
                                                     Text(
-                                                      'Koudouogu',
+                                                      'Munich, Germany',
                                                       style: hintTextStyle,
                                                     )
                                                   ],
@@ -355,7 +366,7 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                         height: 20,
                                       ),
                                       Text(
-                                        'commodo consectetur enim ea et in Duis ex esse amet tempor incididunt commodo dolore nisi adipiscing. officia cupidatat occaecat dolor tempor Duis dolore eiusmod lorem occaecat Duis magna id cupidatat velit irure deserunt reprehenderit do. enim dolor fugiat cillum consequat commodo tempor anim ipsum anim dolor elit nulla cillum ea esse non. nulla est sit minim culpa nostrud ad in voluptate nostrud aliquip nostrud minim sint ex veniam voluptate et. est proident in do est tempor ut mollit ad eu occaecat dolore dolore fugiat occaecat in consequat minim.',
+                                        "As our project manager, your job will be to coordinate people andprocesses to ensure that our projects are delivered on time and producethe desired results. You will be the go-to person for everything involving aproject’s organization and timeline.",
                                         textAlign: TextAlign.start,
                                         //overflow: TextOverflow.clip,
                                         softWrap: true,
@@ -371,7 +382,7 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                             style: boldLargeTextStyle,
                                           )),
                                       Text(
-                                        'aliquip consectetur dolore ullamco deserunt ex mollit Excepteur ipsum id eiusmod eu enim ea cillum eu ad aliquip. dolore quis aliqua anim mollit cillum nisi Duis eu fugiat eu cupidatat commodo velit mollit ea ullamco et. enim ullamco magna ea ipsum eu ipsum aute qui cillum occaecat anim minim do lorem commodo. enim ipsum dolor culpa esse in consequat aute sit amet proident Excepteur irure lorem eiusmod veniam.',
+                                        'We are looking for an experienced Project Manager to manageorganization of key client projects',
                                         style: normalTextStyle,
                                         textAlign: TextAlign.start,
                                       ),
@@ -617,7 +628,7 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                         height: 20,
                                       ),
                                       ExpandableText(
-                                        "id officia quis quis elit deserunt magna elit exercitation sed adipiscing velit ullamco fugiat voluptate sed qui. laboris consequat amet pariatur non nisi nostrud esse aliquip est commodo fugiat enim exercitation consectetur ut culpa aliquip lorem. sed minim nostrud aliqua sed magna ut magna anim magna ea nulla dolor veniam ut commodo est dolore. voluptate occaecat in dolor reprehenderit et aute culpa et in labore sint enim deserunt reprehenderit enim est. sed velit commodo eiusmod ipsum voluptate irure et lorem aute consequat ullamco consectetur exercitation nulla amet adipiscing consequat. ipsum Duis dolore laborum reprehenderit ea dolore laboris ut mollit consectetur irure reprehenderit id lorem consectetur.dolore velit ad adipiscing ut amet commodo ipsum tempor tempor esse occaecat officia esse pariatur minim amet mollit. in veniam eiusmod occaecat ipsum adipiscing non culpa sint quis aliqua sit sunt nostrud culpa sed et nulla. sed amet et ex magna ut cupidatat do quis dolor nostrud pariatur dolore reprehenderit ut ea do. aliqua ad velit irure Excepteur nulla incididunt ipsum velit qui qui et incididunt sed tempor officia amet laborum officia. Excepteur nisi anim qui aute laborum pariatur quis qui proident ullamco dolore quis sint esse id sit.exercitation fugiat esse anim veniam ipsum non irure occaecat Excepteur occaecat qui est sint veniam dolore veniam. ad aliquip et proident laboris irure dolor officia amet in dolore enim in ex Excepteur lorem nulla. eiusmod sed Duis in mollit elit culpa anim labore qui ullamco pariatur aute aliqua magna cillum ad nulla dolore. aute dolor magna reprehenderit nisi deserunt Excepteur nisi consequat irure tempor ad in elit esse ipsum anim. id elit ipsum lorem sint commodo sunt veniam deserunt eiusmod consequat ea reprehenderit commodo voluptate proident magna. commodo laboris dolor qui commodo aliqua ipsum elit sunt eiusmod sunt occaecat aute ullamco consectetur qui ipsum cillum.amet veniam cillum consectetur ex id ipsum laboris et sunt sed laboris sint non eiusmod adipiscing. aute magna et aliquip fugiat amet non sit laboris exercitation sit qui consectetur proident labore cupidatat officia exercitation. veniam ut fugiat magna incididunt sed enim sed sint labore reprehenderit nisi cillum proident sit tempor. dolore consectetur sint culpa adipiscing magna in do ad nostrud velit mollit fugiat commodo lorem elit mollit fugiat. ea consectetur aute ipsum voluptate et culpa lorem officia nisi ad nulla ea enim officia elit nulla. in in nostrud dolore aute mollit enim reprehenderit eiusmod sint elit elit ullamco non in occaecat quis irure amet.anim occaecat aliqua officia proident irure ipsum dolore do deserunt magna velit aliqua aliquip dolor tempor. ipsum qui aliquip irure do aliquip Excepteur ex cillum sint non lorem eu dolore sit cillum veniam. sed velit in tempor dolor ullamco sunt dolor deserunt esse nostrud eiusmod nulla lorem officia in quis occaecat voluptate. nisi tempor aliquip proident sit officia Duis in fugiat cupidatat Duis do et tempor culpa proident. minim Duis minim eu cillum adipiscing velit anim exercitation nisi nulla qui nulla anim et anim non laborum.",
+                                        "edX is an online learning platform (known as FLOT or MOOC). It hosts and makes freely available university-level online courses from all over the world. It also conducts research into online learning and how users use it. It is a non-profit organization, and the platform uses open source software2,3.EdX was founded by the Massachusetts Institute of Technology and Harvard University4,5,6 in May 2012. As of 2014, around 50 schools, associations and international organizations offer or plan to offer courses on EdX7. In July 2014, it had over 2.5 million users taking more than 200 online courses8. The two American universities funding the platform have invested 60 million USD in its development4. The France université numérique platform uses openedX technology, supported by Google9.",
 
                                         style: normalTextStyle,
                                         readMoreText: 'Read more..',
@@ -710,7 +721,7 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                         alignment: Alignment.centerLeft,
                                         child: RichText(
                                             text: TextSpan(
-                                                text: "https://bit.bf/",
+                                                text: "https://edx.com/",
                                                 style: normalTextStyle,
                                                 recognizer:
                                                     TapGestureRecognizer()
@@ -819,8 +830,7 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                                         height: 15,
                                       ),
                                       Text(
-                                        'laboris exercitation dolore labore nulla incididunt culpa tempor minim ut amet eu voluptate in consequat sint officia laboris. deserunt ullamco nulla aliqua nisi do do sint eu sunt exercitation eiusmod aute mollit ad non ipsum eiusmod. nisi laborum deserunt ea velit sed nostrud mollit eiusmod veniam commodo cillum cupidatat veniam non ex enim aliqua. consequat ipsum aliquip in Duis pariatur nisi adipiscing eu qui sit do eu qui sint non.',
-                                        // overflow: TextOverflow.ellipsis,
+                                        "EdX stepped up to provide excellent leadership to the development team when the previous project manager had to leave the project unexpectedly. However, she did forget to communicate several design changes to project stakeholders. In the future, Joanna will provide weekly project updates to stakeholders via email blasts.",
                                         softWrap: true,
                                         style: normalTextStyle,
                                       ),
@@ -894,7 +904,9 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(ApplyingScreen(company: widget.company,));
+                        Get.to(ApplyingScreen(
+                          company: widget.company,
+                        ));
                       },
                       child: Container(
                         height: 50,

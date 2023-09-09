@@ -1,5 +1,6 @@
+import 'package:bit_job_plat/controllers/auth_controller.dart';
 import 'package:bit_job_plat/screens/home_screen.dart';
-import 'package:bit_job_plat/screens/test.dart';
+import 'package:bit_job_plat/screens/loader.dart';
 import 'package:bit_job_plat/values/colors.dart';
 import 'package:bit_job_plat/values/strings.dart';
 import 'package:bit_job_plat/values/style.dart';
@@ -27,20 +28,15 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       new TextEditingController();
   final TextEditingController signUpPasswordController =
       new TextEditingController();
-  final TextEditingController firstNameController = new TextEditingController();
-  final TextEditingController secondNameController =
+
+  final TextEditingController repeatPasswordController =
       new TextEditingController();
-  final TextEditingController birthDateController = new TextEditingController();
-  final TextEditingController studyFieldController =
-      new TextEditingController();
-  final TextEditingController matriculController = new TextEditingController();
-  final TextEditingController classController = new TextEditingController();
-  final TextEditingController phoneController = new TextEditingController();
 
   bool isChecked = false; // État de la case à cocher
   late int _activeStepIndex = 0;
   FocusNode _focusNode = FocusNode();
   bool _isFocused = false;
+  final AuthController authController = AuthController();
   @override
   void initState() {
     super.initState();
@@ -249,7 +245,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                 border: InputBorder.none)),
       ),
     );
-    final firstNameField = Padding(
+    final repeatPasswordField = Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Container(
         decoration: BoxDecoration(
@@ -266,276 +262,30 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
         ),
         child: TextFormField(
             autofocus: false,
-            controller: firstNameController,
-            keyboardType: TextInputType.emailAddress,
+            controller: repeatPasswordController,
+            obscureText: true,
             validator: (value) {
+              RegExp regex = new RegExp(r'^.{6,}$');
               if (value!.isEmpty) {
-                return ("Enter your name please");
+                return ("Repeat Password please");
               }
-              return null;
+              if (!regex.hasMatch(value)) {
+                return ("Enter a valid password");
+              }
             },
             onSaved: (value) {
-              firstNameController.text = value!;
-            },
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.person),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-                hintText: "Rouamba",
-                border: InputBorder.none)),
-      ),
-    );
-    final secondNameField = Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.9),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 5), // décalage de l'ombre
-            ),
-          ],
-        ),
-        child: TextFormField(
-            autofocus: false,
-            controller: secondNameController,
-            //  obscureText: true,
-            validator: (value) {
-              // RegExp regex = new RegExp(r'^.{6,}$');
-              if (value!.isEmpty) {
-                return ("Enter your second name please");
-              }
-              // if (!regex.hasMatch(value)) {
-              return null;
-              //}
-            },
-            onSaved: (value) {
-              secondNameController.text = value!;
+              signInPasswordController.text = value!;
             },
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-//hoverColor: secondaryColor,
                 focusColor: secondaryColor,
-                prefixIcon: const Icon(Icons.person),
+                suffixIcon: Icon(
+                  Icons.visibility,
+                ),
+                prefixIcon: const Icon(Icons.vpn_key),
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-                hintText: "Walioulahi",
-                border: InputBorder.none)),
-      ),
-    );
-    final birthDateField = Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.9),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 5), // décalage de l'ombre
-            ),
-          ],
-        ),
-        child: TextFormField(
-            autofocus: false,
-            controller: birthDateController,
-            keyboardType: TextInputType.datetime,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return ("Enter your birthdate");
-              }
-              // reg expression pour validation de l'email
-              //if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-              //  .hasMatch(value)) {
-              //return ("Enter a valid email");
-              //  }
-              return null;
-            },
-            onSaved: (value) {
-              birthDateController.text = value!;
-            },
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.date_range),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-                hintText: "12/12/2000",
-                border: InputBorder.none)),
-      ),
-    );
-    final phoneField = Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.9),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 5), // décalage de l'ombre
-            ),
-          ],
-        ),
-        child: TextFormField(
-            autofocus: false,
-            controller: phoneController,
-            keyboardType: TextInputType.number,
-            // obscureText: true,
-            validator: (value) {
-              //RegExp regex = new RegExp(r'^.{6,}$');
-              if (value!.isEmpty) {
-                return ("Enter your phone number please");
-              }
-              //if (!regex.hasMatch(value)) {
-              //return ("Password must be at least 6 characters");
-              //}
-            },
-            onSaved: (value) {
-              phoneController.text = value!;
-            },
-            textInputAction: TextInputAction.done,
-            decoration: InputDecoration(
-//hoverColor: secondaryColor,
-                focusColor: secondaryColor,
-                prefixIcon: const Icon(Icons.phone),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-                hintText: "78 00 00 00",
-                border: InputBorder.none)),
-      ),
-    );
-    final studyField = Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.9),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 5), // décalage de l'ombre
-            ),
-          ],
-        ),
-        child: TextFormField(
-            autofocus: false,
-            controller: studyFieldController,
-            //obscureText: true,
-            validator: (value) {
-              // RegExp regex = new RegExp(r'^.{6,}$');
-              if (value!.isEmpty) {
-                return ("Choose your study field please");
-              }
-              // if (!regex.hasMatch(value)) {
-              return null;
-              //}
-            },
-            onSaved: (value) {
-              studyFieldController.text = value!;
-            },
-            textInputAction: TextInputAction.done,
-            decoration: InputDecoration(
-//hoverColor: secondaryColor,
-                focusColor: secondaryColor,
-                prefixIcon: const Icon(Icons.school_outlined),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-                hintText: "Computer Science",
-                border: InputBorder.none)),
-      ),
-    );
-    final matriculField = Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.9),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 5), // décalage de l'ombre
-            ),
-          ],
-        ),
-        child: TextFormField(
-            autofocus: false,
-            controller: matriculController,
-            keyboardType: TextInputType.text,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return ("Enter your ID please");
-              }
-              // reg expression pour validation de l'email
-              //if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-              //  .hasMatch(value)) {
-              //return ("Enter a valid email");
-              //  }
-              return null;
-            },
-            onSaved: (value) {
-              matriculController.text = value!;
-            },
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.lock),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-                hintText: "bs00000",
-                border: InputBorder.none)),
-      ),
-    );
-    final classField = Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.9),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 5), // décalage de l'ombre
-            ),
-          ],
-        ),
-        child: TextFormField(
-            autofocus: false,
-            controller: classController,
-            // obscureText: true,
-            validator: (value) {
-              //RegExp regex = new RegExp(r'^.{6,}$');
-              if (value!.isEmpty) {
-                return ("Enter your class please");
-              }
-              //if (!regex.hasMatch(value)) {
-              //return ("Password must be at least 6 characters");
-              //}
-            },
-            onSaved: (value) {
-              phoneController.text = value!;
-            },
-            textInputAction: TextInputAction.done,
-            decoration: InputDecoration(
-//hoverColor: secondaryColor,
-                focusColor: secondaryColor,
-                prefixIcon: const Icon(Icons.school),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
-                hintText: "CS23",
+                hintText: "Repeat Password",
                 border: InputBorder.none)),
       ),
     );
@@ -628,28 +378,34 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                       SizedBox(
                         height: 30,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(AnimatedBottomBar());
-                          },
-                          child: Container(
-                            width: Get.width,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: secondaryColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Sign In',
-                                style: boldLargeTextStyle.copyWith(
-                                    color: Colors.white),
+                      InkWell(
+                        onTap: () {
+                          authController.signIn(signInEmailController.text,
+                              signInPasswordController.text);
+                        },
+                        child: authController.isLoading.value
+                            ? loadingDialog()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 30, right: 30),
+                                child: InkWell(
+                                  child: Container(
+                                    width: Get.width,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: secondaryColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Sign In',
+                                        style: boldLargeTextStyle.copyWith(
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                       ),
                       SizedBox(
                         height: 20,
@@ -737,207 +493,110 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-                // Contents of Tab 2
-
-                Stepper(
-                    type: StepperType.horizontal,
-                    currentStep: _activeStepIndex,
-                    steps: <Step>[
-                      Step(
-                        state: _activeStepIndex <= 0
-                            ? StepState.indexed
-                            : StepState.complete,
-                        isActive: _activeStepIndex >= 0,
-                        title: Text(
-                          'Etape 1',
-                          style: boldTextStyle,
-                        ),
-                        content: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Center(
-                                child: signUpEmailField,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: signUpPasswordField,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: firstNameField,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: secondNameField,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Step(
-                          state: _activeStepIndex <= 1
-                              ? StepState.indexed
-                              : StepState.complete,
-                          isActive: _activeStepIndex >= 1,
-                          title: Text(
-                            'Etape 2',
-                            style: boldLargeTextStyle,
-                          ),
-                          content: SingleChildScrollView(
-                            child: Column(children: [
-                              Center(
-                                child: phoneField,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: studyField,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: classField,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Center(
-                                child: matriculField,
-                              ),
-                            ]),
-                          ))
-                    ],
-                    onStepTapped: (int index) {
-                      setState(() {
-                        _activeStepIndex = index;
-                      });
-                    },
-                    // onStepContinue: () {},
-                    onStepCancel: () {
-                      if (_activeStepIndex == 0) {
-                        return;
-                      }
-                      setState(() {
-                        _activeStepIndex -= 1;
-                      });
-                    },
-                    controlsBuilder:
-                        (BuildContext context, ControlsDetails details) {
-                      final isLastStep = _activeStepIndex == 1;
-                      return Container(
-                        // margin: EdgeInsets.all(spacingContainer),
-                        child: Padding(
-                          padding: const EdgeInsets.all(spacingContainer),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            // crossAxisAlignment: CrossAxisAlignment.,
-                            children: [
-                              if (_activeStepIndex > 0)
-                                CupertinoButton(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  color: secondaryColor,
-                                  onPressed: details.onStepCancel,
-                                  child: Text(
-                                    'Précedent',
-                                    style: boldTextStyle.copyWith(
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              // const SizedBox(width: spacingContainer,),
-                              CupertinoButton(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
-                                color: secondaryColor,
-                                onPressed: () {
-                                  if (_activeStepIndex == 0) {
-                                    if (signUpEmailController.text.isEmpty ||
-                                        signUpPasswordController.text.isEmpty ||
-                                        firstNameController.text.isEmpty ||
-                                        secondNameController.text.isEmpty) {
-                                      EasyLoading.showInfo(
-                                          "Fill out all the informations please");
-                                    } else {
-                                      setState(() {
-                                        _activeStepIndex++;
-                                      });
-                                    }
-                                  } else {
-                                    if (phoneController.text.isEmpty ||
-                                        classController.text.isEmpty ||
-                                        matriculController.text.isEmpty ||
-                                        studyFieldController.text.isEmpty) {
-                                      EasyLoading.showInfo(
-                                          "Fill out all the informations please");
-                                    } else {}
-                                    Get.back();
-
-                                    // });
-                                  }
-                                },
-                                child: (isLastStep)
-                                    ? Text(
-                                        'Confirmer',
-                                        style: boldTextStyle.copyWith(
-                                            color: Colors.white),
-                                      )
-                                    : Text('Suivant',
-                                        style: boldTextStyle.copyWith(
-                                            color: Colors.white)),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-
-                /* SingleChildScrollView(
+                SingleChildScrollView(
                   child: Column(
                     children: [
                       Center(
                         child: signUpEmailField,
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Center(
                         child: signUpPasswordField,
                       ),
-                      SizedBox(height: 30,),
-                       Center(
-                        child: firstNameField,
+                      SizedBox(
+                        height: 30,
                       ),
-                      SizedBox(height: 30,),
                       Center(
-                        child: secondNameField,
+                        child: repeatPasswordField,
                       ),
-                      SizedBox(height: 30,),
-                       Center(
-                        child: phoneField,
+                      SizedBox(
+                        height: 70,
                       ),
-                      SizedBox(height: 30,),
-                       Center(
-                        child: studyField,
-                      ),
-                      SizedBox(height: 30,),
-                       Center(
-                        child: classField,
-                      ),
-                      SizedBox(height: 30,),
-                      Center(
-                        child: matriculField,
-                      ),
+                     InkWell(
+  onTap: () async {
+    try {
+      await authController.signUp(signUpEmailController.text, signUpPasswordController.text);
+      // After sign up, wait for email verification
+      await authController.sendEmailVerification();
+      // Show the loading screen while waiting for email verification
+      Get.to(() => LoadingScreen(), transition: Transition.fade);
+      // Wait for email verification
+      await Future.delayed(Duration(seconds: 30)); // Simulating delay for email verification
+      // Check if the email has been verified
+      if (authController.emailVerified.value) {
+        // Email has been verified, navigate to the home page
+        Get.offAll(() => const AnimatedBottomBar());
+      } else {
+        // Email has not been verified, show a message to the user
+        Get.back(); // Close the loading screen
+        Get.snackbar('Email Verification', 'Please verify your email before logging in.',
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    } catch (error) {
+      // Handle error if sign up fails
+      print(error);
+      Get.back(); // Close the loading screen
+      Get.snackbar('Error', 'An error occurred during sign up.');
+    }
+  },
+  child: Padding(
+    padding: const EdgeInsets.only(left: 30, right: 30),
+    child: Container(
+      width: Get.width,
+      height: 50,
+      decoration: BoxDecoration(
+        color: secondaryColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(
+          'Sign Up',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.3,
+          ),
+        ),
+      ),
+    ),
+  ),
+),
+
                     ],
                   ),
-                ),*/
+                ),
               ]),
             )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget loadingDialog() {
+    return Center(
+      child: Container(
+        height: 120,
+        width: 120,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.white,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Spacer(),
+            Center(
+              child: CircularProgressIndicator(
+                color: secondaryColor,
+              ),
+            ),
+            Spacer(),
+            Text('Loading...', style: boldLargeTextStyle),
+            Spacer(),
           ],
         ),
       ),

@@ -3,42 +3,37 @@ import 'package:get/get.dart';
 
   class CoreController extends GetxController {
   static CoreController instance = Get.find();
-
-
-
-
-   
     List<Map<String, dynamic>> data = [
+        {
+        'company_name': "SAP",
+        "identifiant": "bit226",
+        'image_path': 'assets/images/sap.png',
+        'offer_name': 'Full Stack developer'
+      },
      
       {
-        'company_name': "Burkina Institute of Technology",
+        'company_name': "EdX",
         "identifiant": "bit226",
-        'image_path': 'assets/bit.png',
-        'offer_name': 'UI/UX Designer'
+        'image_path': 'assets/images/edx.png',
+        'offer_name': 'Project Manager'
       },
       {
         'company_name': "Krones",
         "identifiant": "krones226",
-        'image_path': 'assets/citera.jpeg',
-        'offer_name': 'UI/UX Designer'
+        'image_path': 'assets/images/Krones.png',
+        'offer_name': 'Web Developer'
       },
       {
-        'company_name': "Burkina Institute of Technology",
-        "identifiant": "bit226",
-        'image_path': 'assets/bit.png',
-        'offer_name': 'UI/UX Designer'
-      },
-      {
-        'company_name': "Futurix SARL",
+        'company_name': "Technical University of Munich",
         "identifiant": "ftx226",
-        'image_path': 'assets/citera.jpeg',
-        'offer_name': 'UI/UX Designer'
+        'image_path': 'assets/images/tum.png',
+        'offer_name': 'IT Manager'
       },
       {
-        'company_name': "Burkina Institute of Technology",
+        'company_name': "FH Joanneum",
         "identifiant": "bit226",
-        'image_path': 'assets/bit.png',
-        'offer_name': 'UI/UX Designer'
+        'image_path': 'assets/images/fh.png',
+        'offer_name': 'Electrical Engineer'
       },
       {
          'company_name': "Futurix SARL",

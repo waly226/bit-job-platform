@@ -18,13 +18,13 @@ class OffersScreen extends StatelessWidget {
     var companiesLogos = CoreController.instance.companiesLogos;
     final tabs = <Widget>[
       Tab(
-        text: "Jobs",
+        text: "Applications",
       ),
       Tab(
-        text: "Interships",
+        text: "Internships",
       ),
       Tab(
-        text: 'Announcements',
+        text: 'Jobs',
       )
     ];
     return DefaultTabController(
@@ -74,6 +74,7 @@ class OffersScreen extends StatelessWidget {
                       (job) {
                         int index = jobsList.indexOf(job);
                         String company = companiesList[index];
+                        var image = companiesLogos[index];
                         return InkWell(
                           onTap: () {
                             /* Get.to(JobDetailsScreen(
@@ -106,7 +107,7 @@ class OffersScreen extends StatelessWidget {
                                                       height: 50,
                                                       width: 50,
                                                       image: AssetImage(
-                                                          'assets/images/bit.png')),
+                                                          image)),
                                                 ),
                                                 SizedBox(
                                                   width: 10,
@@ -310,7 +311,7 @@ class OffersScreen extends StatelessWidget {
                                                 SizedBox(
                                                   width: 10,
                                                 ),
-                                               /* Align(
+                                                /* Align(
                                                   alignment: Alignment.bottomLeft,
                                                   child: ClipPath(
                                                       clipper: RectangleTriangleClipper(),
@@ -484,6 +485,7 @@ class OffersScreen extends StatelessWidget {
         ));
   }
 }
+
 class RectangleTriangleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

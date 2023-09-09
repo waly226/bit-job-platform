@@ -75,178 +75,440 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         //backgroundColor: primaryColor,
 
-        body: CustomScrollView(
-          shrinkWrap: true,
-          slivers: [
-            SliverAppBar(
-              collapsedHeight: 150,
-              automaticallyImplyLeading: false,
-              floating: true,
-              pinned: true,
-              scrolledUnderElevation: 100,
-              snap: true,
-              backgroundColor: primaryColor,
-              expandedHeight: 150,
-              flexibleSpace: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, top: 20),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Hi Waliooulahi',
-                              style: normalLargeTextStyle.copyWith(
-                                  color: Colors.white),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text('Feel free to search an offer',
-                                style: normalLargeTextStyle.copyWith(
-                                    color: Colors.white)),
-                          ]),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 60, 72, 87),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              height: 50,
-                              child: TextField(
-                                style: normalTextStyle.copyWith(
-                                    color: Colors.white),
-                                controller: searchController,
-                                decoration: InputDecoration(
-                                  hintText: 'What are you looking for...',
-                                  hintStyle: hintTextStyle,
-                                  hoverColor: Colors.white,
-                                  prefixIcon: Icon(Icons.search),
-                                  prefixIconColor: Colors.grey,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 15),
-                          ElevatedButton(
-                            onPressed: () {
-                              showBottomSheet();
-                            },
-                            child: Icon(Icons.filter_list),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 69, 80, 96),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ]),
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Stack(children: [
-                    /*   Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height / 2,
-                  color: Colors.white,
-              
-                ),*/
-                    Container(
-                        height: MediaQuery.of(context).size.height * 0.42,
-                        color: primaryColor,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Column(
+        body: GetBuilder<CoreController>(
+          init: CoreController.instance,
+          builder: (controller) {
+            return CustomScrollView(
+              shrinkWrap: true,
+              slivers: [
+                SliverAppBar(
+                  collapsedHeight: 150,
+                  automaticallyImplyLeading: false,
+                  floating: true,
+                  pinned: true,
+                  scrolledUnderElevation: 100,
+                  snap: true,
+                  backgroundColor: primaryColor,
+                  expandedHeight: 150,
+                  flexibleSpace: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 20, top: 20),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Job offers',
-                                        style: boldLargeTextStyle.copyWith(
-                                            color: Colors.white),
-                                      ),
-                                      Text(
-                                        'View all',
-                                        style: boldLargeTextStyle.copyWith(
-                                            color: Colors.grey),
-                                      )
-                                    ],
-                                  ),
+                                Text(
+                                  'Hi Waliooulahi',
+                                  style: normalLargeTextStyle.copyWith(
+                                      color: Colors.white),
                                 ),
                                 SizedBox(
-                                  height: 8,
+                                  height: 10,
                                 ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: jobsList.map((job) {
-                                      int index = jobsList.indexOf(job);
-                                      String company = companiesList[index];
-                                      return Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(100)),
-                                        width: 260,
-                                        height: 170,
-                                        margin:
-                                            EdgeInsets.symmetric(horizontal: 3),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Get.to(JobDetailsScreen(
-                                              job: job,
-                                              company: company,
-                                            ));
-                                          },
-                                          child: Card(
-                                            elevation: 20,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                Text('Looking for an offer',
+                                    style: normalLargeTextStyle.copyWith(
+                                        color: Colors.white)),
+                              ]),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 60, 72, 87),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  height: 50,
+                                  child: TextField(
+                                    style: normalTextStyle.copyWith(
+                                        color: Colors.white),
+                                    controller: searchController,
+                                    decoration: InputDecoration(
+                                      hintText: 'What are you looking for...',
+                                      hintStyle: hintTextStyle,
+                                      hoverColor: Colors.white,
+                                      prefixIcon: Icon(Icons.search),
+                                      prefixIconColor: Colors.grey,
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 15),
+                              ElevatedButton(
+                                onPressed: () {
+                                  showBottomSheet();
+                                },
+                                child: Icon(Icons.tune),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Color.fromARGB(255, 69, 80, 96),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ]),
+                ),
+                SliverList(
+                    delegate: SliverChildListDelegate([
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Stack(children: [
+                        /*   Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 2,
+                    color: Colors.white,
+                
+                  ),*/
+                        Container(
+                            height: MediaQuery.of(context).size.height * 0.42,
+                            color: primaryColor,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Job offers',
+                                            style: boldLargeTextStyle.copyWith(
+                                                color: Colors.white),
+                                          ),
+                                          Text(
+                                            'View all',
+                                            style: boldLargeTextStyle.copyWith(
+                                                color: Colors.grey),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: jobsList.map((job) {
+                                          int index = jobsList.indexOf(job);
+                                          String company = companiesList[index];
+                                          var image = companiesLogos[index];
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(100)),
+                                            width: 260,
+                                            height: 170,
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 3),
+                                            child: InkWell(
+                                              onTap: () {
+                                                Get.toNamed('/jobDetails',
+                                                    arguments: {
+                                                      'job': job,
+                                                      'company': company,
+                                                      'image_path': image,
+                                                    });
+                                              },
+                                              child: Card(
+                                                elevation: 20,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      child: Row(
+                                                        children: [
+                                                          Align(
+                                                            alignment: Alignment
+                                                                .topLeft,
+                                                            child: Image(
+                                                                height: 50,
+                                                                width: 50,
+                                                                image:
+                                                                    AssetImage(
+                                                                        image)),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 150,
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  job.toString(),
+                                                                  maxLines: 2,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  softWrap:
+                                                                      true,
+                                                                  style:
+                                                                      boldTextStyle,
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      spacingControl,
+                                                                ),
+                                                                Text(
+                                                                  company,
+                                                                  style:
+                                                                      normalTextStyle,
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 5,
+                                                              left: 8),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 7),
+                                                            child: Row(
+                                                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                              // crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      right:
+                                                                          40),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .info,
+                                                                        color:
+                                                                            secondaryColor,
+                                                                        size:
+                                                                            20,
+                                                                      ),
+                                                                      Text(
+                                                                        'Job',
+                                                                        style: smallBoldTextStyle.copyWith(
+                                                                            color:
+                                                                                Colors.grey),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .location_on,
+                                                                      color:
+                                                                          secondaryColor,
+                                                                      size: 20,
+                                                                    ),
+                                                                    Text(
+                                                                      'Munich, Germany',
+                                                                      style: smallMediumTextStyle.copyWith(
+                                                                          color:
+                                                                              Colors.grey),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 15,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 5,
+                                                                    right: 5),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceAround,
+                                                              children: [
+                                                                Container(
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              15),
+                                                                      color:
+                                                                          secondaryColor),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        bottom:
+                                                                            7,
+                                                                        top: 7,
+                                                                        right:
+                                                                            10,
+                                                                        left:
+                                                                            15),
+                                                                    child: Text(
+                                                                      'Full Time',
+                                                                      style: smallMediumTextStyle.copyWith(
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                //SizedBox(width: 2,),
+                                                                Container(
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              15),
+                                                                      color:
+                                                                          secondaryColor),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        bottom:
+                                                                            7,
+                                                                        top: 7,
+                                                                        right:
+                                                                            10,
+                                                                        left:
+                                                                            15),
+                                                                    child: Text(
+                                                                      'Computer Science',
+                                                                      style: smallMediumTextStyle.copyWith(
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                            child: Column(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.all(8),
-                                                  child: Row(
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('Companies',
+                                              style:
+                                                  boldLargeTextStyle.copyWith(
+                                                      color: Colors.white)),
+                                          Text(
+                                            'View all',
+                                            style: boldLargeTextStyle.copyWith(
+                                                color: Colors.grey),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 280),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: companiesList.asMap().entries.map(
+                                (entry) {
+                                  int index = entry.key;
+                                  var company = entry.value;
+                                  var image = companiesLogos[index];
+                                 
+                                  return InkWell(
+                                    onTap: () {},
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                            /*   decoration: BoxDecoration(
+                                     borderRadius: BorderRadius.circular(100),
+                                     color: Colors.white,
+                                   ),*/
+                                            width: 150,
+                                            height: 150,
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 3),
+                                            child: Card(
+                                              elevation: 5,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  Column(
                                                     children: [
                                                       Align(
                                                         alignment:
-                                                            Alignment.topLeft,
+                                                            Alignment.topCenter,
                                                         child: Image(
                                                             height: 50,
                                                             width: 50,
                                                             image: AssetImage(
-                                                                'assets/images/bit.png')),
+                                                                image)),
                                                       ),
                                                       SizedBox(
                                                         width: 10,
@@ -258,449 +520,224 @@ class _HomePageState extends State<HomePage> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text(
-                                                              job.toString(),
-                                                              maxLines: 2,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              softWrap: true,
-                                                              style:
-                                                                  boldTextStyle,
-                                                            ),
-                                                            SizedBox(
-                                                              height:
-                                                                  spacingControl,
-                                                            ),
-                                                            Text(
-                                                              company,
-                                                              style:
-                                                                  smallMediumTextStyle,
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 15,
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 5, left: 8),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(left: 7),
-                                                        child: Row(
-                                                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                          // crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
                                                             Padding(
                                                               padding:
                                                                   const EdgeInsets
                                                                           .only(
-                                                                      right:
-                                                                          40),
-                                                              child: Row(
-                                                                children: [
-                                                                  Icon(Icons
-                                                                      .attach_money_sharp, color: secondaryColor,),
-                                                                  Text(
-                                                                    '80k',
-                                                                    style: smallMediumTextStyle
-                                                                        .copyWith(
-                                                                            color:
-                                                                                Colors.grey),
-                                                                  ),
-                                                                ],
+                                                                      left: 10),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  company
+                                                                      .toString(),
+                                                                  maxLines: 2,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  softWrap:
+                                                                      true,
+                                                                  style:
+                                                                      boldTextStyle,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Icon(Icons
-                                                                    .location_on, color: secondaryColor,),
-                                                                Text(
-                                                                  'Koudougou',
-                                                                  style: smallMediumTextStyle
-                                                                      .copyWith(
-                                                                          color:
-                                                                              Colors.grey),
-                                                                )
-                                                              ],
                                                             ),
                                                           ],
                                                         ),
                                                       ),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 5,
-                                                                right: 5),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            Container(
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15),
-                                                                  color:
-                                                                      secondaryColor),
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        bottom:
-                                                                            7,
-                                                                        top: 7,
-                                                                        right:
-                                                                            10,
-                                                                        left:
-                                                                            15),
-                                                                child: Text(
-                                                                  'Full Time',
-                                                                  style: smallMediumTextStyle
-                                                                      .copyWith(
-                                                                          color:
-                                                                              Colors.white),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            //SizedBox(width: 2,),
-                                                            Container(
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15),
-                                                                  color:
-                                                                      secondaryColor),
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        bottom:
-                                                                            7,
-                                                                        top: 7,
-                                                                        right:
-                                                                            10,
-                                                                        left:
-                                                                            15),
-                                                                child: Text(
-                                                                  'Experienced 3-5 Yrs',
-                                                                  style: smallMediumTextStyle
-                                                                      .copyWith(
-                                                                          color:
-                                                                              Colors.white),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      )
                                                     ],
                                                   ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text('Announcements',
-                                          style: boldLargeTextStyle.copyWith(
-                                              color: Colors.white)),
-                                      Text(
-                                        'View all',
-                                        style: boldLargeTextStyle.copyWith(
-                                            color: Colors.grey),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 280),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: companiesList.map(
-                            (company) {
-                              return InkWell(
-                               onTap:() {
-                                 
-                                 
-                               },
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                        /*   decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(100),
-                                   color: Colors.white,
-                                 ),*/
-                                        width: 150,
-                                        height: 150,
-                                        margin:
-                                            EdgeInsets.symmetric(horizontal: 3),
-                                        child: Card(
-                                          elevation: 5,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Align(
-                                                    alignment:
-                                                        Alignment.topCenter,
-                                                    child: Image(
-                                                        height: 50,
-                                                        width: 50,
-                                                        image: AssetImage(
-                                                            'assets/images/bit.png')),
-                                                  ),
                                                   SizedBox(
-                                                    width: 10,
+                                                    height: 5,
                                                   ),
-                                                  SizedBox(
-                                                    width: 150,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(left: 10),
-                                                          child: Center(
-                                                            child: Text(
-                                                              company.toString(),
-                                                              maxLines: 2,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              softWrap: true,
-                                                              style:
-                                                                  boldTextStyle,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
+                                                  Center(
+                                                    child: Text(
+                                                      '5 New offers',
+                                                      style:
+                                                          smallMediumTextStyle
+                                                              .copyWith(
+                                                                  color: Colors
+                                                                      .grey),
                                                     ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Center(
-                                                child: Text(
-                                                  '12 New offers',
-                                                  style: smallMediumTextStyle
-                                                      .copyWith(
-                                                          color: Colors.grey),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                            ],
-                                          ),
-                                        )),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 60, top: 120),
-                                      child: Container(
-                                          height: 35,
-                                          width: 35,
-                                          decoration: BoxDecoration(
-                                              color: secondaryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: Icon(
-                                            Icons.chevron_right,
-                                            color: Colors.white,
-                                          )),
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                          ).toList(),
-                        ),
-                      ),
-                    )
-                  ]),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Interships Offers',
-                            style: boldTextStyle.copyWith(color: Colors.black)),
-                        Text(
-                          'View all',
-                          style:
-                              boldLargeTextStyle.copyWith(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: jobsList.map(
-                      (job) {
-                         int index = jobsList.indexOf(job);
-  String company = companiesList[index]; 
-                        return InkWell(
-                          onTap: () {
-                            Get.to(JobDetailsScreen(
-                                              job: job,
-                                              company: company,
-                                            ));
-                          },
-                          child: Container(
-                            height: 110,
-                            child: Stack(
-                              children: [
-                                Card(
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Align(
-                                                  alignment: Alignment.topLeft,
-                                                  child: Image(
-                                                      height: 50,
-                                                      width: 50,
-                                                      image: AssetImage(
-                                                          'assets/images/bit.png')),
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                SizedBox(
-                                                  width: 150,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        job.toString(),
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        softWrap: true,
-                                                        style: boldTextStyle,
-                                                      ),
-                                                      SizedBox(
-                                                        height: spacingControl,
-                                                      ),
-                                                      Text(
-                                                        company,
-                                                        style:
-                                                            smallMediumTextStyle
-                                                                .copyWith(
-                                                                    color: Colors
-                                                                        .grey),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Icon(
-                                              Icons.bookmark,
-                                              color: secondaryColor,
-                                              size: 30,
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 60),
-                                              child: Text(
-                                                '106 Applicants',
-                                                style: boldTextStyle.copyWith(
-                                                    color: secondaryColor),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 95,
-                                            ),
-                                            Text(
-                                              '2 Hours Ago',
-                                              style: boldTextStyle.copyWith(
-                                                  color: Colors.grey),
-                                            )
-                                          ],
+                                            )),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 60, top: 120),
+                                          child: Container(
+                                              height: 35,
+                                              width: 35,
+                                              decoration: BoxDecoration(
+                                                  color: secondaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              child: Icon(
+                                                Icons.chevron_right,
+                                                color: Colors.white,
+                                              )),
                                         )
                                       ],
                                     ),
-                                  ),
-                                ),
-                              ],
+                                  );
+                                },
+                              ).toList(),
                             ),
                           ),
-                        );
-                      },
-                    ).toList(),
-                  )
-                ],
-              ),
-            ]))
-          ],
+                        )
+                      ]),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Interships Offers',
+                                style: boldTextStyle.copyWith(
+                                    color: Colors.black)),
+                            Text(
+                              'View all',
+                              style: boldLargeTextStyle.copyWith(
+                                  color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: jobsList.map(
+                          (job) {
+                            int index = jobsList.indexOf(job);
+                            String company = companiesList[index];
+                            var image = companiesLogos[index];
+                            return InkWell(
+                              onTap: () {
+                                /*  Get.toNamed('/jobDetails',
+                                                    arguments: {
+                                                      'job': job,
+                                                      'company': company,
+                                                      'image_path': image,
+                                                    });*/
+                              },
+                              child: Container(
+                                height: 110,
+                                child: Stack(
+                                  children: [
+                                    Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Align(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      child: Image(
+                                                          height: 50,
+                                                          width: 50,
+                                                          image: AssetImage(
+                                                              image)),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 150,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            job.toString(),
+                                                            maxLines: 2,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            softWrap: true,
+                                                            style:
+                                                                boldTextStyle,
+                                                          ),
+                                                          SizedBox(
+                                                            height:
+                                                                spacingControl,
+                                                          ),
+                                                          Text(
+                                                            company,
+                                                            style: smallMediumTextStyle
+                                                                .copyWith(
+                                                                    color: Colors
+                                                                        .grey),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Icon(
+                                                  Icons.bookmark,
+                                                  color: secondaryColor,
+                                                  size: 30,
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsets.only(left: 60),
+                                                  child: Text(
+                                                    'Internship',
+                                                    style:
+                                                        boldTextStyle.copyWith(
+                                                            color:
+                                                                secondaryColor),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 95,
+                                                ),
+                                                Text(
+                                                  '2 Months',
+                                                  style: boldTextStyle.copyWith(
+                                                      color: Colors.grey),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      )
+                    ],
+                  ),
+                ]))
+              ],
+            );
+          },
         ),
       ),
     );

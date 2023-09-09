@@ -1,3 +1,4 @@
+import 'package:bit_job_plat/screens/view_resume.dart';
 import 'package:bit_job_plat/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -15,8 +16,8 @@ class ResumeScreen extends StatefulWidget {
 
 double completenessPercentage = 70.0;
 double completenessPercentag = 90.0;
+
 class _ResumeScreenState extends State<ResumeScreen> {
-  
   bool resumOpened = true;
   bool resumeOpened = true;
   @override
@@ -222,8 +223,12 @@ class _ResumeScreenState extends State<ResumeScreen> {
                                       });
                                     },
                                     child: Icon(
-                                      resumeOpened? Icons.toggle_on : Icons.toggle_off,
-                                      color: resumeOpened ? primaryColor : Colors.grey,
+                                      resumeOpened
+                                          ? Icons.toggle_on
+                                          : Icons.toggle_off,
+                                      color: resumeOpened
+                                          ? primaryColor
+                                          : Colors.grey,
                                       size: 50,
                                     ))
                               ],
@@ -380,7 +385,10 @@ class _ResumeScreenState extends State<ResumeScreen> {
                           SizedBox(
                             width: 10,
                           ),
-                          Icon(Icons.update, color: secondaryColor,),
+                          Icon(
+                            Icons.update,
+                            color: secondaryColor,
+                          ),
                           SizedBox(
                             width: 10,
                           ),
@@ -453,8 +461,12 @@ class _ResumeScreenState extends State<ResumeScreen> {
                                       });
                                     },
                                     child: Icon(
-                                      resumOpened? Icons.toggle_on : Icons.toggle_off,
-                                      color: resumOpened ? secondaryColor : Colors.grey,
+                                      resumOpened
+                                          ? Icons.toggle_on
+                                          : Icons.toggle_off,
+                                      color: resumOpened
+                                          ? secondaryColor
+                                          : Colors.grey,
                                       size: 50,
                                     ))
                               ],
@@ -480,24 +492,30 @@ class _ResumeScreenState extends State<ResumeScreen> {
                                     color: secondaryColor),
                                 height: 40,
                                 width: 106,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Icon(
-                                      Icons.edit,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      'Update',
-                                      style: boldTextStyle.copyWith(
-                                          color: Colors.white),
-                                    )
-                                  ],
+                                child: InkWell(
+                                  onTap: () {
+                                    
+                                    Get.to(MyResume(isEditable: true));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Icon(
+                                        Icons.edit,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Update',
+                                        style: boldTextStyle.copyWith(
+                                            color: Colors.white),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -507,24 +525,31 @@ class _ResumeScreenState extends State<ResumeScreen> {
                                 color: secondaryColor,
                                 height: 40,
                                 width: 105,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Icon(
-                                      Icons.visibility,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      'Preview',
-                                      style: boldTextStyle.copyWith(
-                                          color: Colors.white),
-                                    )
-                                  ],
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.to(MyResume(
+                                      isEditable: false,
+                                    ));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Icon(
+                                        Icons.visibility,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'Preview',
+                                        style: boldTextStyle.copyWith(
+                                            color: Colors.white),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               SizedBox(

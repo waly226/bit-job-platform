@@ -236,7 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         width: 10,
                                       ),
                                       Text(
-                                        'My Resume',
+                                        'My Resumes',
                                         style: boldLargeTextStyle,
                                       ),
                                     ],

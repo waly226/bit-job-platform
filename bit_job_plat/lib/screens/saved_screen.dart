@@ -17,7 +17,7 @@ class SavedScreen extends StatefulWidget {
 
 class _SavedScreenState extends State<SavedScreen> {
   @override
- Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     var jobsList = CoreController.instance.jobsList;
     var companiesList = CoreController.instance.companiesList;
     var companiesLogos = CoreController.instance.companiesLogos;
@@ -76,6 +76,7 @@ class _SavedScreenState extends State<SavedScreen> {
                       (job) {
                         int index = jobsList.indexOf(job);
                         String company = companiesList[index];
+                        var image = companiesLogos[index];
                         return InkWell(
                           onTap: () {
                             /* Get.to(JobDetailsScreen(
@@ -108,7 +109,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                                       height: 50,
                                                       width: 50,
                                                       image: AssetImage(
-                                                          'assets/images/bit.png')),
+                                                          image)),
                                                 ),
                                                 SizedBox(
                                                   width: 10,
@@ -312,7 +313,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                                 SizedBox(
                                                   width: 10,
                                                 ),
-                                               /* Align(
+                                                /* Align(
                                                   alignment: Alignment.bottomLeft,
                                                   child: ClipPath(
                                                       clipper: RectangleTriangleClipper(),
@@ -471,7 +472,6 @@ class _SavedScreenState extends State<SavedScreen> {
                 ),
               ),
             ),
-           
           ]),
         ));
   }

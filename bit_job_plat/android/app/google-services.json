@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "950558246905",
+    "project_id": "unbun-project",
+    "storage_bucket": "unbun-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950558246905:android:faff6dc14a3130689cdf28",
+        "android_client_info": {
+          "package_name": "com.example.bit_job_plat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950558246905-88tursnsh6a6ooni54blifmdkcpd5omv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKQ7GTx1q6EBnM2nHt8rf3em0PJQFtWyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950558246905-88tursnsh6a6ooni54blifmdkcpd5omv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "950558246905-9iha7uetjb6gca8db9o215ncjpafcegj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bitJobPlat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
