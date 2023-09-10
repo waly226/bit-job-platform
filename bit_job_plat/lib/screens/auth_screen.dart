@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../values/colors.dart';
 import '../values/dimens.dart';
 import 'navbar.dart';
@@ -31,7 +31,8 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
 
   final TextEditingController repeatPasswordController =
       new TextEditingController();
-
+  final AuthController _loadingController =
+      AuthController.instance;
   bool isChecked = false; // État de la case à cocher
   late int _activeStepIndex = 0;
   FocusNode _focusNode = FocusNode();
@@ -292,312 +293,297 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            ClipOval(
-              child: Container(
-                width: 200,
-                height: 200,
-                child: Image.asset(
-                  'assets/images/bit.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            TabBar(
-              dividerColor: Colors.yellow,
-              indicatorColor: secondaryColor,
-              indicatorSize: TabBarIndicatorSize.label,
-              indicatorWeight: 2.0,
-              //unselectedLabelStyle: ,
-              padding: EdgeInsets.only(bottom: 45),
-              labelColor: Colors.black,
-              labelStyle: boldLargeTextStyle,
-              unselectedLabelColor: Colors.grey,
-              controller: _tabController,
-              tabs: [
-                Tab(
-                    child: Text(
-                  "Sign In",
-                  style: boldLargeTextStyle,
-                )),
-                Tab(
-                    child: Text(
-                  "Sign Up",
-                  style: boldLargeTextStyle,
-                )),
-              ],
-            ),
-            Expanded(
-              child: TabBarView(controller: _tabController, children: [
-                SingleChildScrollView(
-                  child: Column(
+        body: Center(
+          child: Obx(() {
+            return _loadingController.isLoading.value
+                ? SpinKitThreeInOut(
+                    color: secondaryColor,
+                    size: 100.0,
+                  )
+                : Column(
                     children: [
-                      Center(
-                        child: signInEmailField,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: signInPasswordField,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Checkbox(
-                                value: isChecked, // État de la case à cocher
-                                onChanged: (value) {
-                                  setState(() {
-                                    isChecked =
-                                        value!; // Met à jour l'état de la case à cocher
-                                  });
-                                },
-                              ),
-                              Text(
-                                'Remember me',
-                                style: normalTextStyle,
-                              ),
-                            ],
+                      ClipOval(
+                        child: Container(
+                          width: 200,
+                          height: 200,
+                          child: Image.asset(
+                            'assets/images/bit.png',
+                            fit: BoxFit.cover,
                           ),
-                          SizedBox(
-                            width: Get.width / 6,
-                          ),
-                          Text(
-                            'Forgot Password',
-                            style: normalTextStyle,
-                          )
+                        ),
+                      ),
+                      TabBar(
+                        dividerColor: Colors.yellow,
+                        indicatorColor: secondaryColor,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicatorWeight: 2.0,
+                        //unselectedLabelStyle: ,
+                        padding: EdgeInsets.only(bottom: 45),
+                        labelColor: Colors.black,
+                        labelStyle: boldLargeTextStyle,
+                        unselectedLabelColor: Colors.grey,
+                        controller: _tabController,
+                        tabs: [
+                          Tab(
+                              child: Text(
+                            "Sign In",
+                            style: boldLargeTextStyle,
+                          )),
+                          Tab(
+                              child: Text(
+                            "Sign Up",
+                            style: boldLargeTextStyle,
+                          )),
                         ],
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          authController.signIn(signInEmailController.text,
-                              signInPasswordController.text);
-                        },
-                        child: authController.isLoading.value
-                            ? loadingDialog()
-                            : Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 30, right: 30),
-                                child: InkWell(
-                                  child: Container(
-                                    width: Get.width,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: secondaryColor,
-                                      borderRadius: BorderRadius.circular(10),
+                      Expanded(
+                        child:
+                            TabBarView(controller: _tabController, children: [
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: signInEmailField,
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Center(
+                                  child: signInPasswordField,
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Row(
+                                  //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Checkbox(
+                                          value:
+                                              isChecked, // État de la case à cocher
+                                          onChanged: (value) {
+                                            setState(() {
+                                              isChecked =
+                                                  value!; // Met à jour l'état de la case à cocher
+                                            });
+                                          },
+                                        ),
+                                        Text(
+                                          'Remember me',
+                                          style: normalTextStyle,
+                                        ),
+                                      ],
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                        'Sign In',
-                                        style: boldLargeTextStyle.copyWith(
-                                            color: Colors.white),
+                                    SizedBox(
+                                      width: Get.width / 6,
+                                    ),
+                                    Text(
+                                      'Forgot Password',
+                                      style: normalTextStyle,
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    authController.signIn(
+                                        signInEmailController.text,
+                                        signInPasswordController.text);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 30, right: 30),
+                                    child: InkWell(
+                                      child: Container(
+                                        width: Get.width,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: secondaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Sign In',
+                                            style: boldLargeTextStyle.copyWith(
+                                                color: Colors.white),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Social Login',
-                            style: boldTextStyle,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.9),
-                                      //spreadRadius: 2,
-                                      blurRadius: 5,
-                                      //  offset: Offset(0, 5), // décalage de l'ombre
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Social Login',
+                                      style: boldTextStyle,
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.9),
+                                                //spreadRadius: 2,
+                                                blurRadius: 5,
+                                                //  offset: Offset(0, 5), // décalage de l'ombre
+                                              ),
+                                            ],
+                                          ),
+                                          child: Image(
+                                            width: 50,
+                                            height: 50,
+                                            image: AssetImage(
+                                                'assets/images/google.jpg'),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.9),
+                                                //spreadRadius: 2,
+                                                blurRadius: 5,
+                                                //  offset: Offset(0, 5), // décalage de l'ombre
+                                              ),
+                                            ],
+                                          ),
+                                          child: Image(
+                                              width: 50,
+                                              height: 50,
+                                              image: AssetImage(
+                                                  'assets/images/facebook.png')),
+                                        )
+                                      ],
                                     ),
                                   ],
                                 ),
-                                child: Image(
-                                  width: 50,
-                                  height: 50,
-                                  image: AssetImage('assets/images/google.jpg'),
+                                SizedBox(
+                                  height: 15,
                                 ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.9),
-                                      //spreadRadius: 2,
-                                      blurRadius: 5,
-                                      //  offset: Offset(0, 5), // décalage de l'ombre
+                                Column(
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        'Or',
+                                        style: boldTextStyle,
+                                      ),
                                     ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        'Continue as Guest',
+                                        style: boldTextStyle.copyWith(
+                                            color: secondaryColor),
+                                      ),
+                                    )
                                   ],
+                                )
+                              ],
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: signUpEmailField,
                                 ),
-                                child: Image(
-                                    width: 50,
-                                    height: 50,
-                                    image: AssetImage(
-                                        'assets/images/facebook.png')),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Column(
-                        children: [
-                          Center(
-                            child: Text(
-                              'Or',
-                              style: boldTextStyle,
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Center(
+                                  child: signUpPasswordField,
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Center(
+                                  child: repeatPasswordField,
+                                ),
+                                SizedBox(
+                                  height: 70,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    try {
+                                      await authController.signUp(
+                                          signUpEmailController.text,
+                                          signUpPasswordController.text);
+                                      // After sign up, wait for email verification
+                                      await authController
+                                          .sendEmailVerification();
+                                      // Show the loading screen while waiting for email verification
+                                      Get.to(() => LoadingScreen(),
+                                          transition: Transition.fade);
+                                      // Wait for email verification
+                                    } catch (error) {
+                                      // Handle error if sign up fails
+                                      print(error);
+                                      Get.back(); // Close the loading screen
+                                      Get.snackbar('Error',
+                                          'An error occurred during sign up.');
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 30, right: 30),
+                                    child: Container(
+                                      width: Get.width,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: secondaryColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Sign Up',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                            letterSpacing: 0.3,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Center(
-                            child: Text(
-                              'Continue as Guest',
-                              style:
-                                  boldTextStyle.copyWith(color: secondaryColor),
-                            ),
-                          )
-                        ],
+                        ]),
                       )
                     ],
-                  ),
-                ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Center(
-                        child: signUpEmailField,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: signUpPasswordField,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: repeatPasswordField,
-                      ),
-                      SizedBox(
-                        height: 70,
-                      ),
-                     InkWell(
-  onTap: () async {
-    try {
-      await authController.signUp(signUpEmailController.text, signUpPasswordController.text);
-      // After sign up, wait for email verification
-      await authController.sendEmailVerification();
-      // Show the loading screen while waiting for email verification
-      Get.to(() => LoadingScreen(), transition: Transition.fade);
-      // Wait for email verification
-      await Future.delayed(Duration(seconds: 30)); // Simulating delay for email verification
-      // Check if the email has been verified
-      if (authController.emailVerified.value) {
-        // Email has been verified, navigate to the home page
-        Get.offAll(() => const AnimatedBottomBar());
-      } else {
-        // Email has not been verified, show a message to the user
-        Get.back(); // Close the loading screen
-        Get.snackbar('Email Verification', 'Please verify your email before logging in.',
-            snackPosition: SnackPosition.BOTTOM);
-      }
-    } catch (error) {
-      // Handle error if sign up fails
-      print(error);
-      Get.back(); // Close the loading screen
-      Get.snackbar('Error', 'An error occurred during sign up.');
-    }
-  },
-  child: Padding(
-    padding: const EdgeInsets.only(left: 30, right: 30),
-    child: Container(
-      width: Get.width,
-      height: 50,
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: Text(
-          'Sign Up',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.3,
-          ),
-        ),
-      ),
-    ),
-  ),
-),
-
-                    ],
-                  ),
-                ),
-              ]),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget loadingDialog() {
-    return Center(
-      child: Container(
-        height: 120,
-        width: 120,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.white,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Spacer(),
-            Center(
-              child: CircularProgressIndicator(
-                color: secondaryColor,
-              ),
-            ),
-            Spacer(),
-            Text('Loading...', style: boldLargeTextStyle),
-            Spacer(),
-          ],
+                  );
+          }),
         ),
       ),
     );

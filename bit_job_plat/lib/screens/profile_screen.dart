@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bit_job_plat/controllers/auth_controller.dart';
 import 'package:bit_job_plat/screens/resume_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -436,9 +437,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     SizedBox(
                                       width: 10,
                                     ),
-                                    Text(
-                                      'Sign Out',
-                                      style: boldLargeTextStyle,
+                                    InkWell(
+                                      onTap: () => AuthController.instance.signOut(),
+                                      child: Text(
+                                        'Sign Out',
+                                        style: boldLargeTextStyle,
+                                      ),
                                     ),
                                   ],
                                 ),
