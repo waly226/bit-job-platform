@@ -14,7 +14,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
   late Rx<User?> _firebaseUser;
-  //late final GoogleSignInAccount _ googleUser;
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
   Rx<User?> currentUser = Rx<User?>(null);
@@ -40,12 +39,6 @@ class AuthController extends GetxController {
         : user.emailVerified
             ?  Get.offAndToNamed(RouteHelper.navbar)
             : Get.toNamed(RouteHelper.mailVerification);
-    
-   /* user == null
-        ? OnboardingScreen()
-        : user.emailVerified
-            ? AnimatedBottomBar()
-            : MailVerificationScreen();*/
   }
 
   void startLoading() {

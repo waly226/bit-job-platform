@@ -74,8 +74,6 @@ class _HomePageState extends State<HomePage> {
     print(jobsList);
     return SafeArea(
       child: Scaffold(
-        //backgroundColor: primaryColor,
-
         body: GetBuilder<CoreController>(
           init: CoreController.instance,
           builder: (controller) {

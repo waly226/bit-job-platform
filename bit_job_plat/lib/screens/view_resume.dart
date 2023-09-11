@@ -60,12 +60,8 @@ class _MyResumeState extends State<MyResume> {
               ),
             ),
           ),
-          /*  FloatingActionButton.extended(
-            child: Text('Change model', style: boldLargeTextStyle,),
-            backgroundColor: secondaryColor,
-           
-          ),*/
           body: FlutterResumeTemplate(
+           
             data: data,
             templateTheme: theme,
             mode:  widget.isEditable

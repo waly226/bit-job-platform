@@ -52,15 +52,6 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  /*List<Step> stepList() => [
-    Step(
-      state:  _activeStepIndex <= 0 ? StepState.indexed : StepState.complete,
-      isActive: _activeStepIndex >= 0,
-      title: Text('Etape 1', style: smallMediumTextStyle,),
-      content: 
-    )
-  ]*/
-
   void _onFocusChange() {
     setState(() {
       _isFocused = _focusNode.hasFocus;
@@ -82,7 +73,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               color: Colors.grey.withOpacity(0.9),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(0, 5), // décalage de l'ombre
+              offset: Offset(0, 5),
             ),
           ],
         ),
@@ -531,23 +522,26 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                 ),
                                 InkWell(
                                   onTap: () async {
-                                    if (signUpPasswordController.text.isEmpty || repeatPasswordController.text.isEmpty) {
-                                       EasyLoading.showError('Fill out the fields');
+                                    if (signUpPasswordController.text.isEmpty ||
+                                        repeatPasswordController.text.isEmpty) {
+                                      EasyLoading.showError(
+                                          'Fill out the fields');
                                     } else {
                                       try {
-                                      await authController.signUp(
-                                          signUpEmailController.text,
-                                          signUpPasswordController.text);
-                                      await MailVerificationController.instance
-                                          .sendEmailVerification();
-                                    } catch (error) {
-                                      // Handle error if sign up fails
-                                      print(error);
-                                      Get.back(); // Close the loading screen
-                                      Get.snackbar('Error',
-                                          'An error occurred during sign up.');
+                                        await authController.signUp(
+                                            signUpEmailController.text,
+                                            signUpPasswordController.text);
+                                        await MailVerificationController
+                                            .instance
+                                            .sendEmailVerification();
+                                      } catch (error) {
+                                        // Handle error if sign up fails
+                                        print(error);
+                                        Get.back(); // Close the loading screen
+                                        Get.snackbar('Error',
+                                            'An error occurred during sign up.');
+                                      }
                                     }
-                                    }   
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(
