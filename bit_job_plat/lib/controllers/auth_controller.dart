@@ -29,23 +29,23 @@ class AuthController extends GetxController {
     super.onInit();
     _firebaseUser = Rx<User?>(_auth.currentUser);
     _firebaseUser.bindStream(_auth.userChanges());
-    //ever(_firebaseUser, setInitialScreen);
+   // ever(_firebaseUser, setInitialScreen);
     setInitialScreen(_firebaseUser.value);
   }
 
   setInitialScreen(User? user) async {
-/*
+
     user == null
         ? Get.toNamed(RouteHelper.initial)
         : user.emailVerified
             ?  Get.offAndToNamed(RouteHelper.navbar)
             : Get.toNamed(RouteHelper.mailVerification);
-    */
-    user == null
+    
+   /* user == null
         ? OnboardingScreen()
         : user.emailVerified
             ? AnimatedBottomBar()
-            : MailVerificationScreen();
+            : MailVerificationScreen();*/
   }
 
   void startLoading() {
@@ -60,23 +60,24 @@ class AuthController extends GetxController {
     if (email.isEmpty || password.isEmpty) {
       EasyLoading.showError('Fill out the fields');
       return;
-    } else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-        .hasMatch(email)) {
-      EasyLoading.showError('Enter a valid email address');
     } else {
-      try {
-        startLoading();
-        await _auth
-            .createUserWithEmailAndPassword(
-              email: email,
-              password: password,
-            )
-            .then((uid) => {setInitialScreen(firebaseUser)});
-      } on FirebaseAuthException catch (error) {
-        print(error.code);
-      } finally {
-        EasyLoading.showSuccess("You've been registered successffly");
-        stopLoading();
+      if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(email)) {
+        EasyLoading.showError('Enter a valid email address');
+      } else {
+        try {
+          isLoading.value = true;
+          await _auth
+              .createUserWithEmailAndPassword(
+                email: email,
+                password: password,
+              )
+              .then((uid) => {setInitialScreen(firebaseUser)});
+        } on FirebaseAuthException catch (error) {
+          print(error.code);
+        } finally {
+          EasyLoading.showSuccess("You've been registered successffly");
+          isLoading.value = false;
+        }
       }
     }
   }

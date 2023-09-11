@@ -22,11 +22,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Get.put(AuthController());
- //Get.put(MailVerificationController());
-
+  Get.put(MailVerificationController());
   Get.put(CoreController());
- /* User? currentUser = FirebaseAuth.instance.currentUser;
-  AuthController.instance.setInitialScreen(currentUser);*/
   runApp(const MyApp());
 }
 
@@ -38,25 +35,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         title: 'Bit Job Platform',
         theme: ThemeData(),
-       // home: HomePage(),
         initialRoute: RouteHelper.initial,
         getPages: RouteHelper.routes,
-       /* getPages: [
-          GetPage(name: '/onboarding', page: () => const OnboardingScreen()),
-          GetPage(name: '/home', page: () => const HomePage()),
-          GetPage(name: '/navbar', page: () => const AnimatedBottomBar()),
-          GetPage(name: '/offers', page: () => const OffersScreen()),
-          GetPage(name: '/saveds', page: () => const SavedScreen()),
-          GetPage(name: '/profile', page: () => const ProfileScreen()),
-          GetPage(
-              name: '/mailverification',
-              page: () => const MailVerificationScreen()),
-          GetPage(name: '/auth', page: () => AuthScreen()),
-          GetPage(
-              name: '/jobDetails',
-              page: () =>
-                  const JobDetailsScreen(company: '', job: '', image: ''))
-        ],*/
         debugShowCheckedModeBanner: false,
         builder: EasyLoading.init());
   }

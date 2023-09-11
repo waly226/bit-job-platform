@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:bit_job_plat/screens/job_details_screen.dart';
+import 'package:bit_job_plat/utils/page_routes.dart';
 import 'package:bit_job_plat/values/colors.dart';
 import 'package:bit_job_plat/values/style.dart';
 import 'package:flutter/foundation.dart';
@@ -227,11 +228,11 @@ class _HomePageState extends State<HomePage> {
                                                 horizontal: 3),
                                             child: InkWell(
                                               onTap: () {
-                                                Get.toNamed('/jobDetails',
+                                                Get.toNamed(RouteHelper.jobDetails,
                                                     arguments: {
                                                       'job': job,
                                                       'company': company,
-                                                      'image_path': image,
+                                                      'image': image,
                                                     });
                                               },
                                               child: Card(

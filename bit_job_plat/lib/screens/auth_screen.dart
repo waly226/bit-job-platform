@@ -1,6 +1,6 @@
 import 'package:bit_job_plat/controllers/auth_controller.dart';
+import 'package:bit_job_plat/controllers/email_verification_controller.dart';
 import 'package:bit_job_plat/screens/home_screen.dart';
-import 'package:bit_job_plat/screens/loader.dart';
 import 'package:bit_job_plat/values/colors.dart';
 import 'package:bit_job_plat/values/strings.dart';
 import 'package:bit_job_plat/values/style.dart';
@@ -31,8 +31,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
 
   final TextEditingController repeatPasswordController =
       new TextEditingController();
-  final AuthController _loadingController =
-      AuthController.instance;
+  final AuthController _loadingController = AuthController.instance;
   bool isChecked = false; // État de la case à cocher
   late int _activeStepIndex = 0;
   FocusNode _focusNode = FocusNode();
@@ -234,7 +233,6 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
             },
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-//hoverColor: secondaryColor,
                 focusColor: secondaryColor,
                 suffixIcon: Icon(
                   Icons.visibility,
@@ -533,17 +531,15 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                 ),
                                 InkWell(
                                   onTap: () async {
-                                    try {
+                                    if (signUpPasswordController.text.isEmpty || repeatPasswordController.text.isEmpty) {
+                                       EasyLoading.showError('Fill out the fields');
+                                    } else {
+                                      try {
                                       await authController.signUp(
                                           signUpEmailController.text,
                                           signUpPasswordController.text);
-                                      // After sign up, wait for email verification
-                                      await authController
+                                      await MailVerificationController.instance
                                           .sendEmailVerification();
-                                      // Show the loading screen while waiting for email verification
-                                      Get.to(() => LoadingScreen(),
-                                          transition: Transition.fade);
-                                      // Wait for email verification
                                     } catch (error) {
                                       // Handle error if sign up fails
                                       print(error);
@@ -551,6 +547,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                       Get.snackbar('Error',
                                           'An error occurred during sign up.');
                                     }
+                                    }   
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(

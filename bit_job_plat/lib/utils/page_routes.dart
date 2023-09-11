@@ -12,8 +12,8 @@ import 'package:get/get.dart';
 class RouteHelper {
   static const String onboarding = "/onboarding";
   static const String initial = "/";
-  static const home = "/home";
-  static const navbar = "/navbar";
+  static const String home = "/home";
+  static const String navbar = "/navbar";
   static const String offers = "/offers";
   static const String saveds = "/saveds";
 
@@ -49,7 +49,7 @@ class RouteHelper {
     GetPage(
         name: navbar,
         page: () {
-          return AnimatedBottomNav();
+          return AnimatedBottomBar();
         },
         transition: Transition.fade),
     GetPage(
