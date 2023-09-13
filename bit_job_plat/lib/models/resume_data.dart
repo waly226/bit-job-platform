@@ -39,6 +39,8 @@ TemplateData data = TemplateData(
         experienceDescription:
         '''Worked hand to hand with backend dev and UI/Ux designer to deliver medical device. • GraphQL • GitLab • Posthog • Fastlane • Dynamic element ''',
       ),
+      
     ],
     education: 'Burkina Institute of Technology',
-    image: 'https://firebasestorage.googleapis.com/v0/b/fourevent-ea1dc.appspot.com/o/IdPhoto.jpg?alt=media&token=0550d456-41bc-40ef-87f7-58c1f879dca3');
+    image: 'https://firebasestorage.googleapis.com/v0/b/fourevent-ea1dc.appspot.com/o/IdPhoto.jpg?alt=media&token=0550d456-41bc-40ef-87f7-58c1f879dca3'
+    );
