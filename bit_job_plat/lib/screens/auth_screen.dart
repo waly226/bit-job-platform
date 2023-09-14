@@ -528,6 +528,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                                           'Fill out the fields');
                                     } else {
                                       try {
+                                        
                                         await authController.signUp(
                                             signUpEmailController.text,
                                             signUpPasswordController.text);

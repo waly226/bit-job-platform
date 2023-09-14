@@ -46,6 +46,10 @@ class ApplicationScreen extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
+            SizedBox(height: 50,),
+            Text('You have been applied successfuly to Full Stack developer at SAP company',
+            style: boldLargeTextStyle.copyWith(color: secondaryColor), textAlign: TextAlign.justify,),
+            SizedBox(height: 20,),
             Align(
                 alignment: Alignment.topLeft,
                 child: Text('Cover Letter', style: boldLargeTextStyle)),

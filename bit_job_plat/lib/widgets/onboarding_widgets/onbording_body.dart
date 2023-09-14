@@ -89,24 +89,27 @@ class _OnboardingBodyState extends State<OnboardingBody> {
             ),
             const Gap(50),
             currentPage == 2
-                ? Container(
-                    height: 50,
-                    width: 250,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: secondaryColor),
-                    alignment: Alignment.center,
-                    child: GestureDetector(
-                        onTap: () {
+                ? InkWell(
+                  onTap: () {
+                    
                           Get.toNamed('/auth'); 
-                          // Navigator.pushNamed(context, '/SignUpWayScreen');
-                        },
-                        child: Text(
-                          "GET STARTED",
-                          style: boldLargeTextStyle.copyWith(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
-                  )
+                          
+                     
+                  },
+                  child: Container(
+                      height: 50,
+                      width: 250,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: secondaryColor),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "GET STARTED",
+                        style: boldLargeTextStyle.copyWith(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                )
                 : SizedBox(),
             Expanded(
               flex: 2,

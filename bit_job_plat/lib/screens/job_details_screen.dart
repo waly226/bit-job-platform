@@ -37,9 +37,10 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
   var companiesList = CoreController.instance.companiesList;
   final int rating = 4;
   final double size = 24.0;
-  final job = Get.arguments['job'] as String;
-  final company = Get.arguments['company'] as String;
-  final image = Get.arguments['image_path'] as String;
+  final String job = Get.arguments?['job'] as String;
+  final String company = Get.arguments?['company'] as String;
+  final String image = Get.arguments?['image_path'] as String;
+
   List<String> imageList = [
     'assets/images/full.jpg',
     'assets/images/full.jpg',
@@ -926,7 +927,9 @@ class _JobDatailsScreenState extends State<JobDetailsScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed('/chat');
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width * 1 / 7,
                         height: 50,

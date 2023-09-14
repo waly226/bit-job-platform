@@ -13,7 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
-  late Rx<User?> _firebaseUser;
+  Rx<User?> _firebaseUser = null.obs;
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
   Rx<User?> currentUser = Rx<User?>(null);
@@ -28,17 +28,18 @@ class AuthController extends GetxController {
     super.onInit();
     _firebaseUser = Rx<User?>(_auth.currentUser);
     _firebaseUser.bindStream(_auth.userChanges());
-   // ever(_firebaseUser, setInitialScreen);
+    ever(_firebaseUser, setInitialScreen);
     setInitialScreen(_firebaseUser.value);
   }
 
   setInitialScreen(User? user) async {
+    print("i'ma the user$user");
 
     user == null
-        ? Get.toNamed(RouteHelper.initial)
+        ? Get.toNamed('/onboarding')
         : user.emailVerified
-            ?  Get.offAndToNamed(RouteHelper.navbar)
-            : Get.toNamed(RouteHelper.mailVerification);
+            ? Get.offAndToNamed('/navbar')
+            : Get.toNamed('/mailverification');
   }
 
   void startLoading() {
@@ -58,7 +59,8 @@ class AuthController extends GetxController {
         EasyLoading.showError('Enter a valid email address');
       } else {
         try {
-          isLoading.value = true;
+          startLoading();
+          isLoading.refresh();
           await _auth
               .createUserWithEmailAndPassword(
                 email: email,
@@ -69,7 +71,7 @@ class AuthController extends GetxController {
           print(error.code);
         } finally {
           EasyLoading.showSuccess("You've been registered successffly");
-          isLoading.value = false;
+          stopLoading();
         }
       }
     }
@@ -93,7 +95,7 @@ class AuthController extends GetxController {
               email: email,
               password: password,
             )
-            .then((uid) => {setInitialScreen(firebaseUser)});
+            .then((uid) => {Get.toNamed('/navbar')});
         // setInitialScreen(firebaseUser);
       } on FirebaseAuthException catch (error) {
         print(error.code);

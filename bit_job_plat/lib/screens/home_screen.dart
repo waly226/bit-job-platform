@@ -9,8 +9,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
+import '../controllers/auth_controller.dart';
 import '../models/data.dart';
 import '../values/dimens.dart';
 
@@ -34,6 +36,8 @@ class _HomePageState extends State<HomePage> {
     // Effectuer l'action de recherche avec le terme saisi
     // ...
   }
+
+  final AuthController _loadingController = AuthController.instance;
 
   final List<String> categories = [
     'All Type',
@@ -217,227 +221,233 @@ class _HomePageState extends State<HomePage> {
                                           String company = companiesList[index];
                                           var image = companiesLogos[index];
                                           return Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(100)),
-                                            width: 260,
-                                            height: 170,
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 3),
-                                            child: InkWell(
-                                              onTap: () {
-                                                Get.toNamed(RouteHelper.jobDetails,
-                                                    arguments: {
-                                                      'job': job,
-                                                      'company': company,
-                                                      'image': image,
-                                                    });
-                                              },
-                                              child: Card(
-                                                elevation: 20,
-                                                shape: RoundedRectangleBorder(
+                                              decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                child: Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.all(8),
-                                                      child: Row(
-                                                        children: [
-                                                          Align(
-                                                            alignment: Alignment
-                                                                .topLeft,
-                                                            child: Image(
-                                                                height: 50,
-                                                                width: 50,
-                                                                image:
-                                                                    AssetImage(
-                                                                        image)),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 10,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 150,
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  job.toString(),
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  softWrap:
-                                                                      true,
-                                                                  style:
-                                                                      boldTextStyle,
-                                                                ),
-                                                                SizedBox(
-                                                                  height:
-                                                                      spacingControl,
-                                                                ),
-                                                                Text(
-                                                                  company,
-                                                                  style:
-                                                                      normalTextStyle,
-                                                                )
-                                                              ],
+                                                          100)),
+                                              width: 260,
+                                              height: 170,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 3),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  Get.toNamed('/jobDetails',
+                                                      arguments: {
+                                                        'job': job,
+                                                        'company': company,
+                                                        'image_path': image,
+                                                      });
+                                                },
+                                                child: Card(
+                                                  elevation: 20,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8),
+                                                        child: Row(
+                                                          children: [
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .topLeft,
+                                                              child: Image(
+                                                                  height: 50,
+                                                                  width: 50,
+                                                                  image:
+                                                                      AssetImage(
+                                                                          image)),
                                                             ),
-                                                          ),
-                                                        ],
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 150,
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    job.toString(),
+                                                                    maxLines: 2,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    softWrap:
+                                                                        true,
+                                                                    style:
+                                                                        boldTextStyle,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height:
+                                                                        spacingControl,
+                                                                  ),
+                                                                  Text(
+                                                                    company,
+                                                                    style:
+                                                                        normalTextStyle,
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 15,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 5,
-                                                              left: 8),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 7),
-                                                            child: Row(
-                                                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                              // crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: const EdgeInsets
+                                                      SizedBox(
+                                                        height: 15,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                right: 5,
+                                                                left: 8),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
                                                                           .only(
-                                                                      right:
-                                                                          40),
-                                                                  child: Row(
+                                                                      left: 7),
+                                                              child: Row(
+                                                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            40),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .info,
+                                                                          color:
+                                                                              secondaryColor,
+                                                                          size:
+                                                                              20,
+                                                                        ),
+                                                                        Text(
+                                                                          'Job',
+                                                                          style:
+                                                                              smallBoldTextStyle.copyWith(color: Colors.grey),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Row(
                                                                     children: [
                                                                       Icon(
                                                                         Icons
-                                                                            .info,
+                                                                            .location_on,
                                                                         color:
                                                                             secondaryColor,
                                                                         size:
                                                                             20,
                                                                       ),
                                                                       Text(
-                                                                        'Job',
-                                                                        style: smallBoldTextStyle.copyWith(
+                                                                        'Munich, Germany',
+                                                                        style: smallMediumTextStyle.copyWith(
                                                                             color:
                                                                                 Colors.grey),
-                                                                      ),
+                                                                      )
                                                                     ],
                                                                   ),
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .location_on,
-                                                                      color:
-                                                                          secondaryColor,
-                                                                      size: 20,
-                                                                    ),
-                                                                    Text(
-                                                                      'Munich, Germany',
-                                                                      style: smallMediumTextStyle.copyWith(
-                                                                          color:
-                                                                              Colors.grey),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 15,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 5,
-                                                                    right: 5),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceAround,
-                                                              children: [
-                                                                Container(
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
+                                                            SizedBox(
+                                                              height: 15,
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      left: 5,
+                                                                      right: 5),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                  Container(
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                15),
+                                                                        color:
+                                                                            secondaryColor),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .only(
+                                                                          bottom:
+                                                                              7,
+                                                                          top:
+                                                                              7,
+                                                                          right:
+                                                                              10,
+                                                                          left:
                                                                               15),
-                                                                      color:
-                                                                          secondaryColor),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        bottom:
-                                                                            7,
-                                                                        top: 7,
-                                                                        right:
-                                                                            10,
-                                                                        left:
-                                                                            15),
-                                                                    child: Text(
-                                                                      'Full Time',
-                                                                      style: smallMediumTextStyle.copyWith(
-                                                                          color:
-                                                                              Colors.white),
+                                                                      child:
+                                                                          Text(
+                                                                        'Full Time',
+                                                                        style: smallMediumTextStyle.copyWith(
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                //SizedBox(width: 2,),
-                                                                Container(
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
+                                                                  //SizedBox(width: 2,),
+                                                                  Container(
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                15),
+                                                                        color:
+                                                                            secondaryColor),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .only(
+                                                                          bottom:
+                                                                              7,
+                                                                          top:
+                                                                              7,
+                                                                          right:
+                                                                              10,
+                                                                          left:
                                                                               15),
-                                                                      color:
-                                                                          secondaryColor),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        bottom:
-                                                                            7,
-                                                                        top: 7,
-                                                                        right:
-                                                                            10,
-                                                                        left:
-                                                                            15),
-                                                                    child: Text(
-                                                                      'Computer Science',
-                                                                      style: smallMediumTextStyle.copyWith(
-                                                                          color:
-                                                                              Colors.white),
+                                                                      child:
+                                                                          Text(
+                                                                        'Computer Science',
+                                                                        style: smallMediumTextStyle.copyWith(
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          );
+                                              ));
                                         }).toList(),
                                       ),
                                     ),
@@ -474,9 +484,10 @@ class _HomePageState extends State<HomePage> {
                               children: companiesList.asMap().entries.map(
                                 (entry) {
                                   int index = entry.key;
+                                  if (index < 6) return SizedBox();
                                   var company = entry.value;
                                   var image = companiesLogos[index];
-                                 
+
                                   return InkWell(
                                     onTap: () {},
                                     child: Stack(
@@ -614,12 +625,11 @@ class _HomePageState extends State<HomePage> {
                             var image = companiesLogos[index];
                             return InkWell(
                               onTap: () {
-                                /*  Get.toNamed('/jobDetails',
-                                                    arguments: {
-                                                      'job': job,
-                                                      'company': company,
-                                                      'image_path': image,
-                                                    });*/
+                                Get.toNamed('/jobDetails', arguments: {
+                                  'job': job,
+                                  'company': company,
+                                  'image_path': image,
+                                });
                               },
                               child: Container(
                                 height: 110,

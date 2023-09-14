@@ -8,7 +8,7 @@ import 'package:bit_job_plat/screens/onboarding/onbording_screen.dart';
 import 'package:bit_job_plat/screens/profile_screen.dart';
 import 'package:bit_job_plat/screens/saved_screen.dart';
 import 'package:get/get.dart';
-
+/*
 class RouteHelper {
   static const String onboarding = "/onboarding";
   static const String initial = "/";
@@ -25,21 +25,20 @@ class RouteHelper {
   static String getOnboarding() => '$onboarding';
   static String getInitial() => '$initial';
   static String getHome() => '$home';
-  static String getNavbar() =>'$navbar';
+  static String getNavbar() => '$navbar';
   static String getOffers() => '$offers';
   static String getSaveds() => '$saveds';
   static String getProfile() => '$profile';
   static String getMailVerification() => '$mailVerification';
   static String getAuth() => '$auth';
-  static String getJobDetails(String company, String image, String job) =>
-      '$jobDetails?company=$company&image=$image&job=$job';
+  static String getJobDetails() => '$jobDetails';
 
   static List<GetPage> routes = [
     /*GetPage(name: pickAddressMap, page: (){
       PickAddressMap _pickAddress = Get.arguments;
       return _pickAddress;
     }),*/
-    GetPage(name: onboarding, page: () => OnboardingScreen()),
+    // GetPage(name: onboarding, page: () => OnboardingScreen()),
     GetPage(
         name: initial,
         page: () {
@@ -55,13 +54,10 @@ class RouteHelper {
     GetPage(
         name: jobDetails,
         page: () {
-          var company = Get.parameters['company'];
-          var image = Get.parameters["image"];
-          var job = Get.parameters["job"];
           return JobDetailsScreen(
-            company: company!,
-            job: job!,
-            image: image!,
+            company: '',
+            job: '',
+            image: '',
           );
         },
         transition: Transition.fadeIn),
@@ -97,3 +93,4 @@ class RouteHelper {
         transition: Transition.fadeIn)
   ];
 }
+*/
