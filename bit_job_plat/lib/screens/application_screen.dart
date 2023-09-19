@@ -98,7 +98,7 @@ class ApplicationScreen extends StatelessWidget {
             Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Applied Date: 20 Feb 2022',
+                  'Applied Date: 15 Sept 2023',
                   style: boldLargeTextStyle.copyWith(color: secondaryColor),
                 ))
           ],
